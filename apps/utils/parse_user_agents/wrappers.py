@@ -10,7 +10,7 @@ from hashlib import md5
 from django.conf import settings
 from django.core.cache import caches
 from django.core.cache import DEFAULT_CACHE_ALIAS
-from .user_agents import parse
+from apps.utils.parse_user_agents.user_agents import parse
 
 
 def get_cache(backend, **kwargs):
