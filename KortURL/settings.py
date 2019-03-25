@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        ' rest_framework_simplejwt.authentication.JWTAuthentication ',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 
 }
@@ -94,7 +94,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'users.User'
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
