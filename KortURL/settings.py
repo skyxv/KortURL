@@ -40,7 +40,17 @@ INSTALLED_APPS = [
     'apps.users.apps.UsersConfig',
     'apps.pages.apps.PagesConfig',
     'api.apps.ApiConfig',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        ' rest_framework_simplejwt.authentication.JWTAuthentication ',
+    )
+
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,3 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+CODE_MAX_LENGTH = 7
+CODE_ALLOWED_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
