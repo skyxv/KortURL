@@ -155,6 +155,7 @@ STATIC_URL = '/static/'
 
 
 KORT_URL = {
+    'SITE_NAME': "KortURL",
     'CODE_MAX_LENGTH': 7,
     'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
