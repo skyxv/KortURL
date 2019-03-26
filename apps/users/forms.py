@@ -55,3 +55,10 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
+class LoginForm(forms.Form):
+    """
+    登录表单
+    """
+    username = forms.CharField(max_length=64, required=True, error_messages={"required": "用户名不能为空"})
+    password = forms.CharField(max_length=64, required=True, error_messages={"required": "密码不能为空"})
+
