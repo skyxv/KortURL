@@ -125,3 +125,15 @@
         padding: 10px 20px;
     }
 }
+
+.no-select{
+
+    -webkit-user-select:none;
+
+     -moz-user-select:none;
+
+     -ms-user-select:none;
+
+     user-select:none;
+
+}
