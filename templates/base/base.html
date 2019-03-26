@@ -7,13 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{ "KortURL" | get_site_name }} | {% block title %}{% endblock title %}</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link href="{% static 'imgs/favicon.ico' %}" rel="shortcut icon">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
-
+  {% block extra_header %}{% endblock extra_header %}
 </head>
 
-<body>
+<body {% block body_style %}{% endblock body_style %}>
+
 {% block body %}
 
 {% endblock body %}
