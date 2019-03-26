@@ -17,7 +17,7 @@
                 <span class="heading no-select">{{ "KortURL"| get_site_name }} 登录</span>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" id="inputUsername" name="username" placeholder="账号">
+                    <input type="text" class="form-control" id="inputUsername" name="username" placeholder="账号" {% if saved_username %}value="{{ saved_username }}"{% endif %}>
                     <i class="fa fa-user"></i>
                     {% if error.username %}<span style="color: red;">{{ error.username.0 }}</span>{% else %}<br>{% endif %}
                 </div>
