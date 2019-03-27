@@ -158,6 +158,7 @@ STATIC_URL = '/static/'
 
 KORT_URL = {
     # website static
+    'SERVER_NAME': "http://localhost:8000",
     'SITE_NAME': "KortURL",
     'COMPANY_NAME': "KortURL",
     'BACKGROUND_COLOR': "#2980B9",
