@@ -23,3 +23,9 @@ def get_bg_color(value):
 @register.filter
 def get_company_name(value):
     return settings.KORT_URL.get('COMPANY_NAME', value)
+
+
+@register.filter
+def get_year(value):
+    import datetime
+    return datetime.datetime.now().year
