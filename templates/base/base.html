@@ -34,7 +34,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li {% if request.path == "/shorten/" %}class="active"{% endif %}><a href="{% url 'shorten' %}">缩短网址 <span class="sr-only">(current)</span></a></li>
+        <li {% if request.path == "/shorten/" or request.path == "/" %}class="active"{% endif %}><a href="{% url 'shorten' %}">缩短网址 </a></li>
         <li {% if request.path == "/reduce/" %}class="active"{% endif %}><a href="{% url 'reduce' %}">还原网址 </a></li>
         <li {% if request.path == "/docs/" %}class="active"{% endif %}><a href="{% url 'docs' %}">接口文档 </a></li>
       </ul>

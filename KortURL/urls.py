@@ -18,11 +18,17 @@ from django.urls import path, include
 
 from api import urls as api_urls
 from apps.users import views as user_views
+from apps.pages import views as page_views
+from apps.urls import views as url_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', url_views.ShortenUrl.as_view(), name="index"),
     path('api/', include(api_urls, namespace='api')),
     path('login/', user_views.Login.as_view(), name="login"),
     path('logout/', user_views.Logout.as_view(), name="logout"),
+    path('shorten/', url_views.ShortenUrl.as_view(), name="shorten"),
+    path('reduce/', url_views.RevertUrl.as_view(), name="reduce"),
+    path('docs/', page_views.Doc.as_view(), name="docs"),
+    path('admin/', admin.site.urls),
 
 ]
