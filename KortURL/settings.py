@@ -168,8 +168,5 @@ KORT_URL = {
     'CODE_MAX_LENGTH': 7,
     'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
 
-    # permissions
-    'ALLOW_ANONYMOUS_USER_USE_PAGE': True,
-    'ALLOW_ANONYMOUS_USER_USE_API': False,
 }
 
