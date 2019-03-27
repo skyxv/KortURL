@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}缩短网址{% endblock title %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row" style="margin-top: 20%;">
+            <div class="col-md-offset-3 col-md-6">
+
+                <form class="form-horizontal" method="post" action="{% url 'shorten' %}">
+                {% csrf_token %}
+                <span class="heading no-select">缩短网址</span>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="inputRawUrl" name="raw_url" placeholder="请输入以https://或http://开头的完整网址">
+                    <i class="fa fa-link"></i>
+                    <br>
+                    <button type="submit" class="btn btn-default">GO</button>
+
+                    {% if error.raw_url %}<span style="color: red;">{{ error.raw_url.0 }}</span>{% else %}<br>{% endif %}
+                </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
