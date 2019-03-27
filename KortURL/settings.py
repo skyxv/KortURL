@@ -157,9 +157,17 @@ STATIC_URL = '/static/'
 
 
 KORT_URL = {
+    # website static
     'SITE_NAME': "KortURL",
+    'COMPANY_NAME': "KortURL",
     'BACKGROUND_COLOR': "#2980B9",
+
+    # custom short code
     'CODE_MAX_LENGTH': 7,
-    'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+
+    # permissions
+    'ALLOW_ANONYMOUS_USER_USE_PAGE': True,
+    'ALLOW_ANONYMOUS_USER_USE_API': False,
 }
 
