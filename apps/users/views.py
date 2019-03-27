@@ -59,4 +59,4 @@ class Logout(View):
     @method_decorator(login_required)
     def get(self, request):
         logout(request)
-        return HttpResponseRedirect(reverse("logout"))
+        return HttpResponseRedirect(reverse("index"))
