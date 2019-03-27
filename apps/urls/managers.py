@@ -5,17 +5,21 @@
 *  Blog:     https://yandenghong.github.io
 """
 from django.db import models
+from apps.utils.transfer_url import code_generator
 
 
 class LinkMapManager(models.Manager):
 
-    def save_map(self, url, code, expire_time=None):
+    def get_or_create_map(self, url, expire_time=None):
+        code = code_generator.get_code()
+        while self.filter(code=code).exists():
+            code = code_generator.get_code()
         data = dict()
         data["url"] = url
         data["code"] = code
         if expire_time:
             data["expire_time"] = expire_time
-        return self.create(**data)
+        return self.get_or_create(raw_url=url, defaults=data)
 
 
 
