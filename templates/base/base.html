@@ -36,7 +36,9 @@
       <ul class="nav navbar-nav">
         <li {% if request.path == "/shorten/" or request.path == "/" %}class="active"{% endif %}><a href="{% url 'shorten' %}">缩短网址 </a></li>
         <li {% if request.path == "/reduce/" %}class="active"{% endif %}><a href="{% url 'reduce' %}">还原网址 </a></li>
-        <li {% if request.path == "/docs/" %}class="active"{% endif %}><a href="{% url 'docs' %}">接口文档 </a></li>
+        {% if request.user.is_authenticated %}
+          <li {% if request.path == "/docs/" %}class="active"{% endif %}><a href="{% url 'docs' %}">接口文档 </a></li>
+        {% endif %}
       </ul>
 {#      <form class="navbar-form navbar-left">#}
 {#        <div class="form-group">#}
@@ -45,14 +47,18 @@
 {#        <button type="submit" class="btn btn-default">Submit</button>#}
 {#      </form>#}
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">我的记录</a></li>
-            <li><a href="#">数据分析</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">退出</a></li>
-          </ul>
+          {% if request.user.is_authenticated %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }} <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">我的记录</a></li>
+                <li><a href="#">数据分析</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{% url 'logout' %}">退出 </a></li>
+          {% else %}
+                  <li><a href="{% url 'login' %}">登录 </a></li>
+          {% endif %}
+              </ul>
         </li>
       </ul>
     </div>
