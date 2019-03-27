@@ -14,3 +14,7 @@ register = template.Library()
 def get_site_name(value):
     return settings.KORT_URL.get('SITE_NAME', value)
 
+
+@register.filter
+def get_bg_color(value):
+    return settings.KORT_URL.get('BACKGROUND_COLOR', value)
