@@ -158,6 +158,7 @@ STATIC_URL = '/static/'
 
 KORT_URL = {
     'SITE_NAME': "KortURL",
+    'BACKGROUND_COLOR': "#2980B9",
     'CODE_MAX_LENGTH': 7,
     'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 }
