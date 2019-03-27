@@ -2,10 +2,9 @@
 {% load static %}
 {% load custom_tags %}
 {% block title %}登录{% endblock title %}
-{% block extra_header %}
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-{% endblock extra_header %}
-{% block body_style %}style="background-color: #2980B9;" {% endblock body_style %}
+
+{% block navbar %}{% endblock navbar %}
+
 {% block body %}
 
 
@@ -42,3 +41,5 @@
     </div>
 </div>
 {% endblock body %}
+
+{% block footer %}{% endblock footer %}
