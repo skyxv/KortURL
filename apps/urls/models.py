@@ -3,6 +3,8 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from apps.urls.managers import LinkMapManager
+
 
 class LinkMap(models.Model):
     """
@@ -15,6 +17,8 @@ class LinkMap(models.Model):
     expire_time = models.IntegerField("过期时间(单位：秒)", default=0)
     created_at = models.DateTimeField("创建时间", auto_now_add=True)
     updated_at = models.DateTimeField("更新时间", auto_now=True)
+
+    objects = LinkMapManager()
 
     class Meta:
         db_table = "link_map"
