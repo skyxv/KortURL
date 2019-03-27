@@ -156,6 +156,11 @@ STATICFILES_DIRS = [
 ]
 STATIC_URL = '/static/'
 
+# redis
+REDIS_STUFF = {
+    "HOST": "localhost",
+    "PORT": 3306
+}
 
 KORT_URL = {
     # website static
