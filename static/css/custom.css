@@ -137,3 +137,11 @@
      user-select:none;
 
 }
+
+.main-footer {
+    background: #fff;
+    padding: 15px;
+    color: #444;
+    border-top: 1px solid #d2d6de;
+    text-align: center;
+}
