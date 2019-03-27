@@ -6,7 +6,7 @@
 	 *
 	 * @codingstandard ftlabs-jsv2
 	 * @copyright The Financial Times Limited [All Rights Reserved]
-	 * @license MIT License (see LICENSE.txt)
+	 * @license MIT License (see LICENSE)
 	 */
 
 	/*jslint browser:true, node:true*/
