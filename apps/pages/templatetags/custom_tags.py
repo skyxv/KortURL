@@ -18,3 +18,8 @@ def get_site_name(value):
 @register.filter
 def get_bg_color(value):
     return settings.KORT_URL.get('BACKGROUND_COLOR', value)
+
+
+@register.filter
+def get_company_name(value):
+    return settings.KORT_URL.get('COMPANY_NAME', value)
