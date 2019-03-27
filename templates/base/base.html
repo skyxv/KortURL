@@ -17,6 +17,7 @@
 
 <body {% block body_style %}style="background-color: {{ "#2980B9"| get_bg_color }};"{% endblock body_style %}>
 
+{% block navbar %}
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -57,15 +58,18 @@
     </div>
   </div>
 </nav>
+{% endblock navbar %}
 
 {% block body %}
 
 {% endblock body %}
 
+{% block footer %}
 <footer class="main-footer footer navbar-fixed-bottom">
     <strong>Copyright © {{ 2019 | get_year }} <a href="#">{{ "KortURL" | get_company_name }}</a>.</strong> All rights
     reserved.
 </footer>
+{% endblock footer %}
 <!-- jQuery 3 -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <!-- Bootstrap 3.3.7 -->
