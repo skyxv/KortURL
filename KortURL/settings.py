@@ -158,20 +158,22 @@ STATIC_URL = '/static/'
 
 # redis
 REDIS_STUFF = {
-    "HOST": "localhost",
-    "PORT": 3306
+    "HOST": "localhost",  # Optional, default localhost
+    "PORT": 6379,       # Optional, default 6379
+    "PASSWORD": None,   # Optional, default None
+    "MAP_CACHE_DB": 0   # Optional, default 0
 }
 
 KORT_URL = {
     # website static
-    'SERVER_NAME': "http://localhost:8000",
-    'SITE_NAME': "KortURL",
-    'COMPANY_NAME': "KortURL",
-    'BACKGROUND_COLOR': "#2980B9",
+    'SERVER_NAME': "http://localhost:8000",  # Required
+    'SITE_NAME': "KortURL",   # Optional
+    'COMPANY_NAME': "KortURL",  # Optional
+    'BACKGROUND_COLOR': "#2980B9",  # Optional
 
     # custom short code
-    'CODE_MAX_LENGTH': 7,
-    'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+    'CODE_MAX_LENGTH': 7,  # Optional
+    'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',  # Optional
 
 }
 
