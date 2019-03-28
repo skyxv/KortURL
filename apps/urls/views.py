@@ -19,13 +19,15 @@ class ShortenUrl(View):
     def get_short_url(self, code):
         protocol = settings.KORT_URL.get('PROTOCOL', 'HTTPS')
         server_name = self.server_name
+
         if protocol.lower() in ["https", "http"]:
+            domain = protocol.lower() + "://" + server_name
             if server_name.endswith('/'):
-                return protocol.lower() + "://" + server_name + code
+                return domain + code
             else:
-                return protocol.lower() + "://" + server_name + "/" + code
+                return domain + "/" + code
         else:
-            raise ValueError("Incorrect value of 'KORT_URL.PROTOCOL'")
+            raise ValueError("Incorrect value of 'KORT_URL.PROTOCOL'.")
 
     def get(self, request):
         return render(request, 'shorten_url.html')
