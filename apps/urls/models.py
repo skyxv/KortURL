@@ -33,10 +33,12 @@ class LinkMap(models.Model):
 @receiver(post_save, sender=LinkMap)
 def create_map_cache(sender, instance=None, created=False, **kwargs):
     """
-    当LinkMap`写入`时，将映射存入redis中, 并设置过期时间
+    当LinkMap`写入`时，将映射存入redis中, 并设置过期时间,同时将该条映射的is_cached置为True
     """
     if created:
         redis_cli.set_data(instance.code, instance.url, instance.expire_time)
+        instance.is_cached = True
+        instance.save()
 
 
 class AccessLogs(models.Model):
