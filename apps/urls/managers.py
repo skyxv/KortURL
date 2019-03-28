@@ -15,12 +15,12 @@ class LinkMapManager(models.Manager):
         while self.filter(code=code).exists():
             code = code_generator.get_code()
         data = dict()
-        data["user"] = user
+        data["created_by"] = user
         data["url"] = url
         data["code"] = code
         if expire_time:
             data["expire_time"] = expire_time
-        return self.get_or_create(raw_url=url, created_by=user, defaults=data)
+        return self.get_or_create(url=url, created_by=user, defaults=data)
 
 
 
