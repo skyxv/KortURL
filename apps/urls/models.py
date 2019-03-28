@@ -17,6 +17,8 @@ class LinkMap(models.Model):
     init_access_at = models.DateTimeField("初次访问时间", null=True, blank=True)
     expire_time = models.IntegerField("过期时间(单位：秒)", default=0)
     created_by = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="创建人")
+    is_cached = models.BooleanField("是否已被缓存", default=False)
+    is_expired = models.BooleanField("是否已过期", default=False)
     created_at = models.DateTimeField("创建时间", auto_now_add=True)
     updated_at = models.DateTimeField("更新时间", auto_now=True)
 
