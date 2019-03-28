@@ -29,7 +29,7 @@ class LinkMap(models.Model):
 
 
 @receiver(post_save, sender=LinkMap)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
+def create_map_cache(sender, instance=None, created=False, **kwargs):
     """
     当LinkMap`写入`时，将映射存入redis中, 并设置过期时间
     """
