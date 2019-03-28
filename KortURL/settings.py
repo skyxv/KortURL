@@ -167,9 +167,9 @@ REDIS_STUFF = {
 KORT_URL = {
     # website static
     'PROTOCOL': "HTTPS",  # Optional, choices: HTTP | HTTPS, default: HTTPS
-    'SERVER_NAME': "http://localhost:8000",  # Required
+    'SERVER_NAME': "localhost:8000",  # Required
     'SITE_NAME': "KortURL",   # Optional
-    'COMPANY_NAME': "KortURL",  # Optional
+    'COMPANY_NAME': "KortURL",  # Optional, display for footer
     'BACKGROUND_COLOR': "#2980B9",  # Optional
 
     # custom short code
