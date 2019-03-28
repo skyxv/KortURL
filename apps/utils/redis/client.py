@@ -11,21 +11,23 @@ from django.conf import settings
 
 class RedisClient:
     """
-    对redis client的封装, 以便于在本项目中使用
+    对redis client的简单封装, 以便于在本项目中使用
     """
     def __init__(self):
         self._redis_host = settings.REDIS_STUFF.get('HOST', 'localhost')
-        self._redis_port = settings.REDIS_STUFF.get('PORT', 3306)
+        self._redis_port = settings.REDIS_STUFF.get('PORT', 6379)
+        self._password = settings.REDIS_STUFF.get('PASSWORD', None)
+        self._db = settings.REDIS_STUFF.get('MAP_CACHE_DB', 0)
         self._pool = redis.ConnectionPool(host=self._redis_host, port=self._redis_port,
-                                          decode_responses=True)
-
+                                          decode_responses=True, db=self._db,
+                                          password=self._password)
         self.client = redis.Redis(connection_pool=self._pool)
 
     def set_data(self, key, value, expire_time):
         if expire_time:
-            self.client.set(key, value)
-        else:
             self.client.set(key, value, ex=expire_time)
+        else:
+            self.client.set(key, value)
 
     def get_data(self, key):
         return self.client.get(key)
