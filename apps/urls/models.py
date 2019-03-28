@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from apps.urls.managers import LinkMapManager
+from apps.utils.redis.client import redis_cli
 
 
 class LinkMap(models.Model):
@@ -33,8 +34,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     当LinkMap`写入`时，将映射存入redis中, 并设置过期时间
     """
     if created:
-        # TODO 存入redis
-        pass
+        redis_cli.set_data(instance.code, instance.url, instance.expire_time)
 
 
 class AccessLogs(models.Model):
