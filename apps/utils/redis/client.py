@@ -30,3 +30,5 @@ class RedisClient:
     def get(self, key):
         return self.client.get(key)
 
+
+redis_cli = RedisClient()
