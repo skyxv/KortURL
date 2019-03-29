@@ -20,6 +20,7 @@ class LinkMapManager(models.Manager):
         data["code"] = code
         return self.get_or_create(url=url, created_by=user, defaults=data)
 
-
+    def get_map_by_code(self, user, code):
+        return self.filter(code=code, created_by=user).first()
 
 
