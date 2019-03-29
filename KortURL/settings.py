@@ -173,7 +173,7 @@ KORT_URL = {
     'BACKGROUND_COLOR': "#2980B9",  # Optional
 
     # custom short code
-    'CODE_MAX_LENGTH': 7,  # Optional
+    'CODE_MAX_LENGTH': 7,  # Optional, don't set this value too small, otherwise your link pool will be exhausted soon.
     'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',  # Optional
 
 }
