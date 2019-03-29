@@ -23,11 +23,8 @@ class RedisClient:
                                           password=self._password)
         self.client = redis.Redis(connection_pool=self._pool)
 
-    def set_data(self, key, value, expire_time):
-        if expire_time:
-            self.client.set(key, value, ex=expire_time)
-        else:
-            self.client.set(key, value)
+    def set_data(self, key, value):
+        return self.client.set(key, value)
 
     def get_data(self, key):
         return self.client.get(key)
