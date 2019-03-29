@@ -55,7 +55,9 @@ class Login(View):
 
 
 class Logout(View):
-
+    """
+    退出
+    """
     @method_decorator(login_required)
     def get(self, request):
         logout(request)
