@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}还原网址{% endblock title %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row" style="margin-top: 15%;">
+            <div class="col-md-offset-3 col-md-6">
+                <form class="form-horizontal" method="post" action="{% url 'reduce' %}">
+                {% csrf_token %}
+                <span class="heading no-select">还原网址</span>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="inputShortUrl" name="short_url" placeholder="请输入以{{ domain }}开头的网址">
+                    <i class="fa fa-link"></i>
+                    <br>
+                    <button type="submit" class="btn btn-default">GO</button>
+                    {% if error.short_url %}<span style="color: red;">{{ error.short_url.0 }}</span>{% endif %}
+                </div>
+
+                {% if raw_url %}
+                    {% if raw_url != "not_exist" %}
+                        <span class="heading no-select">还原后的网址</span>
+                        <div class="form-group">
+                            <div class="input-group">
+                                        <input type="text" id="short_url" class="form-control" value="{{ raw_url }}" readonly>
+                                            <span class="input-group-btn">
+                                              <button type="button" class="btn btn-default" onclick="copyText()">点击复制</button>
+                                            </span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <span class="heading no-select" style="color: red;">要还原的网址不存在!</span>
+                    {% endif %}
+                {% endif %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock body %}
+
+{% block extra_js %}
+    <script>
+        function copyText() {
+            var input = document.getElementById("short_url");
+            input.select();
+            document.execCommand("copy");
+            alert("复制成功!");
+        }
+    </script>
+{% endblock %}
