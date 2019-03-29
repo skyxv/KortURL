@@ -7,6 +7,7 @@
 import re
 
 from django import forms
+from django.conf import settings
 
 
 class ShortenUrlForm(forms.Form):
@@ -24,3 +25,37 @@ class ShortenUrlForm(forms.Form):
         if not re.match(pattern, raw_url):
             raise forms.ValidationError("请输入正确的网址")
         return raw_url
+
+
+class ReduceForm(forms.Form):
+    """
+    还原网址表单
+    """
+    short_url = forms.CharField(max_length=255, required=True, error_messages={"required": "网址不能为空"})
+
+    @property
+    def server_name(self):
+        return settings.KORT_URL.get('SERVER_NAME', 'localhost:8000')
+
+    @property
+    def code_length(self):
+        return settings.KORT_URL.get('CODE_MAX_LENGTH', 7)
+
+    @property
+    def domain(self):
+        protocol = settings.KORT_URL.get('PROTOCOL', 'HTTPS')
+        server_name = self.server_name
+        if protocol.lower() in ["https", "http"]:
+            return protocol.lower() + "://" + server_name
+        else:
+            raise ValueError("Incorrect value of 'KORT_URL.PROTOCOL'.")
+
+    @property
+    def pattern(self):
+        return "^" + re.escape(self.domain if self.domain.endswith('/') else self.domain + "/") + "\w{" + re.escape(str(self.code_length)) + "}$"
+
+    def clean_short_url(self):
+        short_url = self.cleaned_data.get('short_url')
+        if not re.match(self.pattern, short_url):
+            raise forms.ValidationError("请输入以{}开头的正确网址".format(self.domain))
+        return short_url
