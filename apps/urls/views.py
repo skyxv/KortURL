@@ -4,30 +4,44 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from apps.urls.forms import ShortenUrlForm
+from apps.urls.forms import ShortenUrlForm, ReduceForm
 from apps.urls.models import LinkMap
 
 
-class ShortenUrl(View):
-    """
-    缩短网址
-    """
+class BaseUrlView(View):
     @property
     def server_name(self):
         return settings.KORT_URL.get('SERVER_NAME', 'localhost:8000')
 
-    def get_short_url(self, code):
+    @property
+    def code_length(self):
+        return settings.KORT_URL.get('CODE_MAX_LENGTH', 7)
+
+    @property
+    def domain(self):
         protocol = settings.KORT_URL.get('PROTOCOL', 'HTTPS')
         server_name = self.server_name
-
         if protocol.lower() in ["https", "http"]:
-            domain = protocol.lower() + "://" + server_name
-            if server_name.endswith('/'):
-                return domain + code
-            else:
-                return domain + "/" + code
+            return protocol.lower() + "://" + server_name
         else:
             raise ValueError("Incorrect value of 'KORT_URL.PROTOCOL'.")
+
+    def get_short_url(self, code):
+        if self.server_name.endswith('/'):
+            return self.domain + code
+        else:
+            return self.domain + "/" + code
+
+    def get_code_by_short_url(self, short_url):
+        if short_url:
+            url_pieces = short_url.split(self.domain)
+            return url_pieces[1].replace('/', '') if url_pieces[1].startswith('/') else url_pieces[1]
+
+
+class ShortenUrl(BaseUrlView):
+    """
+    缩短网址
+    """
 
     def get(self, request):
         return render(request, 'shorten_url.html')
