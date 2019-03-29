@@ -58,4 +58,22 @@ class ShortenUrl(BaseUrlView):
             return render(request, 'shorten_url.html', {"error": form.errors})
 
 
-# Create your views here.
+class RevertUrl(BaseUrlView):
+    """
+    还原网址
+    """
+
+    def get(self, request):
+        return render(request, 'reduce_url.html', {'domain': self.domain})
+
+    @method_decorator(login_required)
+    def post(self, request):
+        form = ReduceForm(request.POST)
+        if form.is_valid():
+            link_map = LinkMap.objects.get_map_by_code(request.user,
+                                                       self.get_code_by_short_url(form.cleaned_data.get("short_url")))
+            return render(request, 'reduce_url.html',
+                          {"raw_url": link_map.url if link_map else "not_exist", 'domain': self.domain})
+        else:
+            return render(request, 'reduce_url.html', {"error": form.errors, 'domain': self.domain})
+
