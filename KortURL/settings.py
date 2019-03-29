@@ -170,7 +170,7 @@ KORT_URL = {
     'SERVER_NAME': "localhost:8000",  # Required
     'SITE_NAME': "KortURL",   # Optional
     'COMPANY_NAME': "KortURL",  # Optional, display for footer
-    'BACKGROUND_COLOR': "#2980B9",  # Optional
+    'BACKGROUND_COLOR': "#3498DB",  # Optional
 
     # custom short code
     'CODE_MAX_LENGTH': 7,  # Optional, don't set this value too small, otherwise your link pool will be exhausted soon.
