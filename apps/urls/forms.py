@@ -14,7 +14,6 @@ class ShortenUrlForm(forms.Form):
     缩短网址表单
     """
     raw_url = forms.CharField(max_length=255, required=True, error_messages={"required": "网址不能为空"})
-    expire_time = forms.IntegerField(required=False)
 
     def clean_raw_url(self):
         raw_url = self.cleaned_data.get('raw_url')

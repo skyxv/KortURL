@@ -15,10 +15,7 @@ class LinkMap(models.Model):
     code = models.CharField("短码", max_length=settings.KORT_URL.get('CODE_MAX_LENGTH', 16), unique=True)
     hit_count = models.IntegerField("打开次数", default=0)
     init_access_at = models.DateTimeField("初次访问时间", null=True, blank=True)
-    expire_time = models.IntegerField("过期时间(单位：秒)", default=0)
     created_by = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="创建人")
-    is_cached = models.BooleanField("是否已被缓存", default=False)
-    is_expired = models.BooleanField("是否已过期", default=False)
     created_at = models.DateTimeField("创建时间", auto_now_add=True)
     updated_at = models.DateTimeField("更新时间", auto_now=True)
 
@@ -36,9 +33,7 @@ def create_map_cache(sender, instance=None, created=False, **kwargs):
     当LinkMap`写入`时，将映射存入redis中, 并设置过期时间,同时将该条映射的is_cached置为True
     """
     if created:
-        redis_cli.set_data(instance.code, instance.url, instance.expire_time)
-        instance.is_cached = True
-        instance.save()
+        redis_cli.set_data(instance.code, instance.url)
 
 
 class AccessLogs(models.Model):
