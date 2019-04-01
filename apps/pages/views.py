@@ -1,10 +1,8 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
-from django.views import View
 from django.views.generic import TemplateView
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from apps.urls.models import LinkMap
+from .serializers import LinkMapSerializer
 
 
 class Doc(TemplateView):
@@ -14,13 +12,22 @@ class Doc(TemplateView):
     template_name = 'doc.html'
 
 
-class History(View):
+class LinkMapView(TemplateView):
+    """
+    接口文档
+    """
+    template_name = 'history.html'
+
+
+class History(ReadOnlyModelViewSet):
     """
     历史记录
     """
+    serializer_class = LinkMapSerializer
 
-    @method_decorator(login_required)
-    def get(self, request):
-        histories = LinkMap.objects.filter(created_by=request.user).all()
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return LinkMap.objects.all()
+        else:
+            return LinkMap.objects.none()
 
-        return render(request, 'history.html')

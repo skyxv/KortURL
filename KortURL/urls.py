@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
 from api import urls as api_urls
 from apps.users import views as user_views
 from apps.pages import views as page_views
 from apps.urls import views as url_views
+
+router = DefaultRouter()
+router.register('histories/', page_views.History, base_name='history')
 
 urlpatterns = [
     path('', url_views.ShortenUrl.as_view(), name="index"),
@@ -29,7 +33,8 @@ urlpatterns = [
     path('shorten/', url_views.ShortenUrl.as_view(), name="shorten"),
     path('reduce/', url_views.RevertUrl.as_view(), name="reduce"),
     path('docs/', page_views.Doc.as_view(), name="docs"),
-    path('histories/', page_views.History.as_view(), name="history"),
+    path('link_maps/', page_views.History.as_view({'get': 'list'}), name="link_maps"),
+    path('history/', page_views.LinkMapView.as_view(), name="history"),
     path('admin/', admin.site.urls),
 
 ]
