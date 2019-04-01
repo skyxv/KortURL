@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}我的记录{% endblock title %}
+{% block extra_header %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap-table.min.css' %}">
+{% endblock extra_header %}
+{% block body_style %}style="background-color: white;margin-top: 50px;"{% endblock body_style %}
+{% block body %}
+    <table id="mytab"></table>
+{% endblock body %}
+
+{% block extra_js %}
+    <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table-zh-CN.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+        //根据窗口调整表格高度
+        $(window).resize(function() {
+            $('#mytab').bootstrapTable('resetView', {
+                height: tableHeight()
+            })
+        });
+
+        $('#mytab').bootstrapTable({
+            classes: "table table-hover table-striped",
+            url: "{% url 'link_maps' %}",
+            dataField: "",
+            height: tableHeight(),
+            search: true,
+            pagination: true,
+            pageSize: 20,
+            pageList: [5, 10, 20, 50],
+            sidePagination: "client",
+            contentType: "application/json",
+            dataType: "json",
+            method: "get",
+            searchAlign: "left",
+            queryParamsType: "limit",
+            searchOnEnterKey: false,
+            showRefresh: true,
+            showColumns: true,
+            buttonsAlign: "left",
+            toolbar: "#toolbar",
+            toolbarAlign: "right",
+            columns: [
+                {
+                    title: "长网址",
+                    field: "long_url",
+                    sortable: false,
+                    order: "desc"
+                },
+                {
+                    title: "短网址",
+                    field: "short_url",
+                    sortable: false,
+                },
+                {
+                    title: "点击次数",
+                    field: "counts",
+                    sortable: true,
+                },
+                {
+                    title: "初次访问时间",
+                    field: "init_time",
+                    sortable: true,
+                },
+                {
+                    title: "创建时间",
+                    field: "created_at",
+                    sortable: true,
+                }
+            ],
+            onClickRow: function(row, $element) {
+                alert(row["short_url"]);
+                $element.css("background-color", "white");
+            },
+            locale: "zh-CN",
+            detailView: true,
+            detailFormatter: function(index, row, element) {
+                var html = '';
+                $.each(row, function(key, val){
+                    html += "<p>" + "<strong>" + key + "</strong>" + ":" + val +  "</p>"
+                });
+                return html;
+            }
+        });
+
+    });
+
+    function tableHeight() {
+        return $(window).height() - 50;
+    }
+
+</script>
+{% endblock extra_js %}
+{% block footer %}{% endblock footer %}
