@@ -30,3 +30,8 @@ def get_company_name(value):
 def get_year(value):
     import datetime
     return datetime.datetime.now().year
+
+
+@register.filter
+def get_short_code(value):
+    return config.get_code_by_short_url(value)
