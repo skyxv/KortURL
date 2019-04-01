@@ -29,6 +29,7 @@ urlpatterns = [
     path('shorten/', url_views.ShortenUrl.as_view(), name="shorten"),
     path('reduce/', url_views.RevertUrl.as_view(), name="reduce"),
     path('docs/', page_views.Doc.as_view(), name="docs"),
+    path('histories/', page_views.History.as_view(), name="history"),
     path('admin/', admin.site.urls),
 
 ]
