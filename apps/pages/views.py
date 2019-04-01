@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.generic import TemplateView
-from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from apps.urls.models import LinkMap
 from .serializers import LinkMapSerializer
@@ -19,15 +22,14 @@ class LinkMapView(TemplateView):
     template_name = 'history.html'
 
 
-class History(ReadOnlyModelViewSet):
+class History(View):
     """
     历史记录
     """
-    serializer_class = LinkMapSerializer
 
-    def get_queryset(self):
-        if self.request.user.is_authenticated:
-            return LinkMap.objects.all()
-        else:
-            return LinkMap.objects.none()
+    @method_decorator(login_required)
+    def get(self, request):
+        return JsonResponse(LinkMapSerializer(LinkMap.objects.filter(created_by=request.user),
+                                              many=True).data, safe=False)
+
 
