@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load custom_tags %}
 {% block title %}我的记录{% endblock title %}
 {% block extra_header %}
     <link rel="stylesheet" href="{% static 'css/bootstrap-table.min.css' %}">
@@ -45,23 +46,23 @@
             columns: [
                 {
                     title: "长网址",
-                    field: "long_url",
+                    field: "url",
                     sortable: false,
                     order: "desc"
                 },
                 {
-                    title: "短网址",
-                    field: "short_url",
+                    title: "短码",
+                    field: "code",
                     sortable: false,
                 },
                 {
                     title: "点击次数",
-                    field: "counts",
+                    field: "hit_count",
                     sortable: true,
                 },
                 {
                     title: "初次访问时间",
-                    field: "init_time",
+                    field: "init_access_at",
                     sortable: true,
                 },
                 {
@@ -71,8 +72,7 @@
                 }
             ],
             onClickRow: function(row, $element) {
-                alert(row["short_url"]);
-                $element.css("background-color", "white");
+                self.location=row["code"];
             },
             locale: "zh-CN",
             detailView: true,
