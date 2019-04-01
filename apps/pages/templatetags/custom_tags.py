@@ -5,24 +5,25 @@
 *  Blog:     https://yandenghong.github.io
 """
 from django import template
-from django.conf import settings
+
+from apps.utils.get_configs import config
 
 register = template.Library()
 
 
 @register.filter
 def get_site_name(value):
-    return settings.KORT_URL.get('SITE_NAME', value)
+    return config.site_name
 
 
 @register.filter
 def get_bg_color(value):
-    return settings.KORT_URL.get('BACKGROUND_COLOR', value)
+    return config.bg_color
 
 
 @register.filter
 def get_company_name(value):
-    return settings.KORT_URL.get('COMPANY_NAME', value)
+    return config.company_name
 
 
 @register.filter
