@@ -9,12 +9,29 @@ from django.conf import settings
 
 class Configuration:
     @property
+    def site_name(self):
+        return settings.KORT_URL.get('SITE_NAME', "KortURL")
+
+    @property
+    def bg_color(self):
+        return settings.KORT_URL.get('BACKGROUND_COLOR', "#3498DB")
+
+    @property
+    def company_name(self):
+        return settings.KORT_URL.get('COMPANY_NAME', "KortURL")
+
+    @property
     def server_name(self):
         return settings.KORT_URL.get('SERVER_NAME', 'localhost:8000')
 
     @property
     def code_length(self):
         return settings.KORT_URL.get('CODE_MAX_LENGTH', 7)
+
+    @property
+    def code_allowed_chars(self):
+        return settings.KORT_URL.get('CODE_ALLOWED_CHARS',
+                                     'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
 
     @property
     def domain(self):
