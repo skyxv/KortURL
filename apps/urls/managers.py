@@ -55,7 +55,7 @@ class AccessLogManager(models.Manager):
 
     def build_log_from_request(self, request, code):
         ip = self.get_ip_address(request)
-        ip_data = ip_query.get_location(ip)
+        ip_data = ip_query.get_location(ip) if ip != "127.0.0.1" else {}
         user_agent = request.user_agent
         self.create(code=code, ip=ip, country=ip_data.get("country", None),
                     province=ip_data.get("province", None),
