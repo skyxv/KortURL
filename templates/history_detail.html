@@ -4,11 +4,11 @@
 {% block extra_header %}
     <script src="{% static 'js/echarts.min.js' %}"></script>
 {% endblock extra_header %}
-{% block body_style %}style="background-color: white;margin-top: 50px;"{% endblock body_style %}
+{% block body_style %}style="background-color: #dddddd;margin-top: 50px;"{% endblock body_style %}
 
 {% block body %}
     <div class="page-header" style="text-align: center;">
-        <h1>{{ code }}概览</h1>
+        <h1>{{ code }}</h1>
     </div>
 
     <div class="row">
@@ -31,14 +31,17 @@
             },
             xAxis: {
                 type: 'category',
-                data: {{ view_dates | safe }}
+                data: {{ view_dates | safe }},
             },
             yAxis: {
                 type: 'value'
             },
             series: [{
                 data: {{ view_counts | safe }},
-                type: 'line'
+                type: 'line',
+                symbol: 'circle',
+                symbolSize: 20,
+                color: '#3498DB'
             }]
         };
 
