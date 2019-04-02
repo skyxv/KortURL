@@ -53,6 +53,8 @@ class HistoryDetail(View):
         os_names, os_data = self.get_os_data(current_url_logs)
         # 浏览器统计
         browser_names, browser_data = self.get_browser_data(current_url_logs)
+        # 运营商
+        isp_names, isp_data = self.get_isp_data(current_url_logs)
         return render(request, 'history_detail.html', locals())
 
     def get_views_count_data(self, current_url_logs):
@@ -131,3 +133,20 @@ class HistoryDetail(View):
             browser_count = current_url_logs.filter(browser_name=browser_name).count()
             data.append({"name": browser_name, "value": browser_count})
         return names, data
+
+    @staticmethod
+    def get_isp_data(current_url_logs):
+        """
+        运营商统计
+        """
+        isp_names = current_url_logs.values_list('isp', flat=True)
+        if all(isp_names):
+            data = []
+            names = list(set(list(isp_names)))
+            for isp_name in names:
+                browser_count = current_url_logs.filter(isp=isp_name).count()
+                data.append({"name": isp_name, "value": browser_count})
+            return names, data
+        else:
+            return [], []
+
