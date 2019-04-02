@@ -5,6 +5,7 @@
 *  Blog:     https://yandenghong.github.io
 """
 from django.db import models
+from django.utils.timezone import now
 
 from apps.utils.transfer_url import code_generator
 from apps.utils.redis.client import redis_cli
@@ -35,6 +36,17 @@ class LinkMapManager(models.Manager):
             if link_map:
                 redis_cli.set_data(link_map.code, link_map.url)
                 return link_map.url
+
+    @staticmethod
+    def add_hit_count(instance):
+        """
+        访问数加1,并记录初次访问时间
+        """
+        if not instance.hit_count:
+            instance.init_access_at = now()
+
+        instance.hit_count += 1
+        instance.save()
 
 
 class AccessLogManager(models.Manager):
