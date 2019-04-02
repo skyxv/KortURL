@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from apps.urls.managers import LinkMapManager
+from apps.urls.managers import LinkMapManager, AccessLogManager
 from apps.utils.redis.client import redis_cli
 
 
@@ -53,6 +53,8 @@ class AccessLogs(models.Model):
     is_pc = models.NullBooleanField("是否电脑")
     is_bot = models.NullBooleanField("是否机器人")
     created_at = models.DateTimeField("访问时间", auto_now_add=True)
+
+    objects = AccessLogManager()
 
     class Meta:
         db_table = "access_logs"

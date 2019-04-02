@@ -24,3 +24,8 @@ class LinkMapManager(models.Manager):
         return self.filter(code=code, created_by=user).first()
 
 
+class AccessLogManager(models.Manager):
+
+    def get_log_by_code(self, code):
+        return self.filter(code=code).order_by('created_at')
+
