@@ -33,7 +33,7 @@ urlpatterns = [
     path('link_maps/', page_views.History.as_view(), name="link_maps"),
     path('history/', page_views.LinkMapView.as_view(), name="history"),
     path('history/<slug:code>/', page_views.HistoryDetail.as_view(), name="history_detail"),
-
     path('admin/', admin.site.urls),
+    path('<slug:code>/', url_views.RedirectView.as_view(), name="redirect"),
 
 ]
