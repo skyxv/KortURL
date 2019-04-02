@@ -55,7 +55,8 @@
         var views_chart = echarts.init(document.getElementById('views_count'));
         var views_option = {
             title: {
-                text: '访问量'
+                text: '访问量',
+                x: 'center'
             },
             xAxis: {
                 type: 'category',
@@ -78,7 +79,8 @@
         var trend_chart = echarts.init(document.getElementById('trend'));
         var trend_option = {
             title: {
-                text: '今日24小时访问趋势'
+                text: '今日24小时访问趋势',
+                x:'center'
             },
             xAxis: {
                 type: 'category',
