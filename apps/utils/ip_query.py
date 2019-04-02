@@ -27,8 +27,9 @@ class IPQueryAPI:
                     "isp":"xx"
                 }
         """
-        res = self.requests.get(url=self._base_url, params={"ip": ip})
-        return res.json()
+        if ip != "127.0.0.1":
+            res = self.requests.get(url=self._base_url, params={"ip": ip})
+            return res.json()
 
 
 ip_query = IPQueryAPI()
