@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}详情{% endblock title %}
+{% block extra_header %}
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+{% endblock extra_header %}
+{% block body_style %}style="background-color: white;margin-top: 50px;"{% endblock body_style %}
+
+{% block body %}
+    <div class="page-header" style="text-align: center;">
+        <h1>{{ code }}概览</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="views_count" style="height: 400px;"></div>
+        </div>
+
+    </div>
+
+
+{% endblock body %}
+
+{% block extra_js %}
+    <script>
+        // 链接访问量与日期
+        var views_chart = echarts.init(document.getElementById('views_count'));
+        var views_option = {
+            title: {
+                text: '访问量'
+            },
+            xAxis: {
+                type: 'category',
+                // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                data: {{ view_dates }}
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                // data: [820, 932, 901, 934, 1290, 1330, 1320],
+                data: {{ view_counts }},
+                type: 'line'
+            }]
+        };
+
+        views_chart.setOption(views_option);
+    </script>
+{% endblock extra_js %}
+{% block footer %}
+{% endblock footer %}
