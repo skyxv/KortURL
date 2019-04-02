@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 
 from apps.urls.models import LinkMap, AccessLogs
 from .serializers import LinkMapSerializer
@@ -46,13 +47,23 @@ class HistoryDetail(View):
         view_counts, view_dates = self.get_views_count_data(current_url_logs)
         return render(request, 'history_detail.html', locals())
 
-    @staticmethod
-    def get_views_count_data(current_url_logs):
+    def get_views_count_data(self, current_url_logs):
         """
         访问量图表数据
         """
-        dates = current_url_logs.values_list('created_at', flat=True).distinct()
+        date_times = current_url_logs.values_list('created_at', flat=True).distinct()
+        dates = []
         view_counts = []
-        for date in dates:
-            view_counts.append(current_url_logs.filter(created_at=date).count())
-        return view_counts, list(dates)
+        for date_time in date_times:
+            str_time = self.get_str_time(date_time)
+            if str_time not in dates:
+                view_counts.append(current_url_logs.filter(created_at=date_time).count())
+                dates.append(str_time)
+            else:
+                view_counts[dates.index(str_time)] += 1
+        return view_counts, dates
+
+    @staticmethod
+    def get_str_time(raw_time):
+        raw_time = timezone.localtime(raw_time)
+        return "{}-{}-{}".format(raw_time.year, raw_time.month, raw_time.day)
