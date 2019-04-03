@@ -49,11 +49,26 @@
             </div>
         </div>
     </div>
+<br>
+    <div class="row">
+        <div class="col-md-12">
+        <div style="background-color: white;border-radius:15px;">
+            <div id="domestic_dist" style="height: 800px;"></div>
+            </div>
+        </div>
+
+{#        <div class="col-md-6">#}
+{#            <div style="background-color: white;border-radius:15px;">#}
+{#            <div id="world_dist" style="height: 500px;"></div>#}
+{#            </div>#}
+{#        </div>#}
+    </div>
 
 
 {% endblock body %}
 
 {% block extra_js %}
+    <script src="{% static 'js/china.js' %}"></script>
     <script>
         // 访问量
         var views_chart = echarts.init(document.getElementById('views_count'));
@@ -136,7 +151,7 @@
                                 shadowColor: 'rgba(0, 0, 0, 0.5)'
                             }
                         },
-                        color: '#3498DB'
+                        //color: '#3498DB'
                     }
                 ]
             };
@@ -177,7 +192,7 @@
                                 shadowColor: 'rgba(0, 0, 0, 0.5)'
                             }
                         },
-                        color: '#3498DB'
+                        //color: '#3498DB'
                     }
                 ]
             };
@@ -218,7 +233,7 @@
                                 shadowColor: 'rgba(0, 0, 0, 0.5)'
                             }
                         },
-                        color: '#3498DB'
+                        //color: '#3498DB'
                     }
                 ]
             };
@@ -258,11 +273,65 @@
                                 shadowColor: 'rgba(0, 0, 0, 0.5)'
                             }
                         },
-                        color: '#3498DB'
+                        //color: '#3498DB'
                     }
                 ]
             };
         isp_chart.setOption(isp_option);
+
+        // 国内分布
+        var domestic_dist_chart = echarts.init(document.getElementById('domestic_dist'));
+        var domestic_dist_option = {
+            title: {
+                text: '国内访问分布',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data:['访问量']
+            },
+            visualMap: {
+                min: 0,
+                max: {% if max_value %}{{ max_value | safe }}{% else %}500{% endif %},
+                left: 'left',
+                top: 'bottom',
+                text: ['高','低'],
+                calculable: true
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            series: [
+                {
+                    name: '访问量',
+                    type: 'map',
+                    mapType: 'china',
+                    roam: false,
+                    label: {
+                        normal: {
+                            show: true
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    data:{{ domestic_data | safe }}
+                },
+            ]
+        };
+        domestic_dist_chart.setOption(domestic_dist_option);
     </script>
 {% endblock extra_js %}
 {% block footer %}

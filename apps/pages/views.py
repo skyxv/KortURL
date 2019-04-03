@@ -1,3 +1,5 @@
+import heapq
+
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
@@ -55,6 +57,8 @@ class HistoryDetail(View):
         browser_names, browser_data = self.get_browser_data(current_url_logs)
         # 运营商
         isp_names, isp_data = self.get_isp_data(current_url_logs)
+        # 国内访问分布
+        max_value, domestic_data = self.get_domestic_data(current_url_logs)
         return render(request, 'history_detail.html', locals())
 
     def get_views_count_data(self, current_url_logs):
@@ -150,3 +154,19 @@ class HistoryDetail(View):
         else:
             return [], []
 
+    @staticmethod
+    def get_domestic_data(current_url_logs):
+        """
+        国内访问分布
+        """
+        provinces = ["北京", "天津", "上海", "重庆", "河北", "河南", "云南", "辽宁", "黑龙江",
+                     "湖南", "安徽", "山东", "新疆", "江苏", "浙江", "江西", "湖北", "广西",
+                     "甘肃", "山西", "内蒙古", "陕西", "吉林", "福建", "贵州", "广东", "青海",
+                     "西藏", "四川", "宁夏", "海南", "台湾", "香港", "澳门"]
+        data = []
+        view_counts = []
+        for province in provinces:
+            view_count = current_url_logs.filter(province__contains=province).count()
+            data.append({"name": province, "value": view_count})
+            view_counts.append(view_count)
+        return heapq.nlargest(1, view_counts)[0], data
