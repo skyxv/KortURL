@@ -166,7 +166,7 @@ class HistoryDetail(View):
         data = []
         view_counts = []
         for province in provinces:
-            view_count = current_url_logs.filter(province__contains=province).count()
+            view_count = current_url_logs.filter(country="中国", province__contains=province).count()
             data.append({"name": province, "value": view_count})
             view_counts.append(view_count)
         return heapq.nlargest(1, view_counts)[0], data
