@@ -37,16 +37,17 @@ class LinkMapManager(models.Manager):
                 redis_cli.set_data(link_map.code, link_map.url)
                 return link_map.url
 
-    @staticmethod
-    def add_hit_count(instance):
+    def add_hit_count(self, code):
         """
         访问数加1,并记录初次访问时间
         """
-        if not instance.hit_count:
-            instance.init_access_at = now()
+        instance = self.filter(code=code).first()
+        if instance:
+            if not instance.hit_count:
+                instance.init_access_at = now()
 
-        instance.hit_count += 1
-        instance.save()
+            instance.hit_count += 1
+            instance.save()
 
 
 class AccessLogManager(models.Manager):

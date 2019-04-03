@@ -60,7 +60,7 @@ class RedirectView(View):
         if not url:
             raise Http404
         # TODO 将日志记录和访问次数记录放入队列中异步处理以加快跳转速度
-        LinkMap.objects.add_hit_count(url)
+        LinkMap.objects.add_hit_count(code)
         AccessLogs.objects.build_log_from_request(request, code)
         # 302重定向
         return HttpResponseRedirect(url)
