@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from . import forms, models
 
 
-@admin.register(models.User)
+@admin.register(models.UserProfile)
 class UserAdmin(BaseUserAdmin):
 
     form = forms.UserChangeForm

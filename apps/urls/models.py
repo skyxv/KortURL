@@ -15,7 +15,7 @@ class LinkMap(models.Model):
     code = models.CharField("短码", max_length=settings.KORT_URL.get('CODE_MAX_LENGTH', 16), unique=True)
     hit_count = models.IntegerField("打开次数", default=0)
     init_access_at = models.DateTimeField("初次访问时间", null=True, blank=True)
-    created_by = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="创建人")
+    created_by = models.ForeignKey("users.UserProfile", on_delete=models.CASCADE, verbose_name="创建人")
     created_at = models.DateTimeField("创建时间", auto_now_add=True)
     updated_at = models.DateTimeField("更新时间", auto_now=True)
 
