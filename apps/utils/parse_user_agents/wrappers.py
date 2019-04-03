@@ -1,10 +1,3 @@
-"""
-*  Author:   Vincent Yim
-*  FileName: wrappers.py
-*  Software: PyCharm
-*  Blog:     https://yandenghong.github.io
-"""
-
 from hashlib import md5
 
 from django.conf import settings

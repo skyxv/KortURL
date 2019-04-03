@@ -1,10 +1,3 @@
-"""
-*  Author:   Vincent Yim
-*  FileName: user_agents_middleware.py
-*  Software: PyCharm
-*  Blog:     https://yandenghong.github.io
-"""
-
 from django.utils.functional import SimpleLazyObject
 
 from .wrappers import get_user_agent
