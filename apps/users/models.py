@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 from .managers import UserManager
 
 
-class User(AbstractBaseUser):
+class UserProfile(AbstractBaseUser):
     """
     用户
     """
@@ -30,6 +30,6 @@ class User(AbstractBaseUser):
         return self.username
 
     class Meta:
-        db_table = "user"
+        db_table = "user_profile"
         verbose_name = "用户"
         verbose_name_plural = verbose_name

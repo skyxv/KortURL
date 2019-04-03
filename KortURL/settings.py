@@ -115,7 +115,7 @@ DATABASES = {
 }
 
 LOGIN_URL = "/login/"
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.UserProfile'
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
