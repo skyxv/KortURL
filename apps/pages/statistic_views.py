@@ -6,7 +6,6 @@
 """
 import heapq
 
-from django.utils import timezone
 from django.views import View
 
 
@@ -18,22 +17,21 @@ class StatisticView(View):
         """
         访问量图表数据
         """
-        date_times = current_url_logs.values_list('created_at', flat=True).distinct()
+        date_times = current_url_logs.values_list('created_at__year', 'created_at__month', 'created_at__day')
+        unique_dates = list(set(list(date_times)))
         dates = []
         view_counts = []
-        for date_time in date_times:
-            str_time = self.get_str_time(date_time)
-            if str_time not in dates:
-                view_counts.append(current_url_logs.filter(created_at=date_time).count())
-                dates.append(str_time)
-            else:
-                view_counts[dates.index(str_time)] += 1
+        for date_tuple in unique_dates:
+            str_time = self.get_str_date(date_tuple)
+            view_counts.append(current_url_logs.filter(created_at__year=date_tuple[0],
+                                                       created_at__month=date_tuple[1],
+                                                       created_at__day=date_tuple[2]).count())
+            dates.append(str_time)
         return view_counts, dates
 
     @staticmethod
-    def get_str_time(raw_time):
-        raw_time = timezone.localtime(raw_time)
-        return "{}-{}-{}".format(raw_time.year, raw_time.month, raw_time.day)
+    def get_str_date(date_tuple):
+        return "{}-{}-{}".format(date_tuple[0], date_tuple[1], date_tuple[2])
 
     @staticmethod
     def get_all_day_visit_trend(current_url_logs):
@@ -97,15 +95,15 @@ class StatisticView(View):
         运营商统计
         """
         isp_names = current_url_logs.values_list('isp', flat=True)
-        if all(isp_names):
-            data = []
-            names = list(set(list(isp_names)))
-            for isp_name in names:
+        data = []
+        names = list(set(list(isp_names)))
+        valid_isp_names = []
+        for isp_name in names:
+            if isp_name:
                 browser_count = current_url_logs.filter(isp=isp_name).count()
                 data.append({"name": isp_name, "value": browser_count})
-            return names, data
-        else:
-            return [], []
+                valid_isp_names.append(isp_name)
+        return valid_isp_names, data
 
     @staticmethod
     def get_domestic_data(current_url_logs):
