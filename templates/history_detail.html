@@ -71,6 +71,10 @@
                 text: '访问量',
                 x: 'center'
             },
+            tooltip : {
+                    trigger: 'item',
+                    formatter: "{a}: {c}"
+            },
             xAxis: {
                 type: 'category',
                 data: {{ view_dates | safe }},
@@ -79,6 +83,7 @@
                 type: 'value'
             },
             series: [{
+                name: "访问量",
                 data: {{ view_counts | safe }},
                 type: 'line',
                 symbol: 'circle',
@@ -95,6 +100,10 @@
                 text: '今日24小时访问趋势',
                 x:'center'
             },
+            tooltip : {
+                    trigger: 'item',
+                    formatter: "{a}: {c}"
+            },
             xAxis: {
                 type: 'category',
                 data: {{ trend_hours | safe }},
@@ -103,6 +112,7 @@
                 type: 'value'
             },
             series: [{
+                name: "访问量",
                 data: {{ trend_counts | safe }},
                 type: 'line',
                 color: '#3498DB'
