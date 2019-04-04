@@ -7,6 +7,15 @@ verify_ssl = true
 
 [packages]
 django = "*"
+pyyaml = "*"
+ua-parser = "*"
+user-agents = "*"
+requests = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+redis = "*"
+celery = "*"
+uwsgi = "*"
 
 [requires]
 python_version = "3.5"
