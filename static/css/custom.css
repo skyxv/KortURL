@@ -155,3 +155,24 @@
     width: 100%;
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
+.doc_body{
+    background: #fff;
+    padding: 15px;
+    border-radius: 3px;
+    text-align: left;
+    width:80%;
+    margin:0 auto;
+}
+
+
+.badge_get{
+    background-color: #3498DB;
+    margin-right: 2%;
+    font-size: 20px;
+}
+
+.badge_post{
+    background-color: #F1C40F;
+    margin-right: 2%;
+    font-size: 20px;
+}
