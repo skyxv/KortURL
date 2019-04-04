@@ -45,32 +45,6 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
-REST_FRAMEWORK = {
-
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-
-}
-
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
-    'VERIFYING_KEY': None,
-
-    'AUTH_HEADER_TYPES': ('KortURL',),
-    'USER_ID_FIELD': 'id',
-    'USER_ID_CLAIM': 'user_id',
-
-    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-    'TOKEN_TYPE_CLAIM': 'token_type'
-}
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -156,13 +130,51 @@ STATICFILES_DIRS = [
 ]
 STATIC_URL = '/static/'
 
-# redis
-REDIS_STUFF = {
-    "HOST": "localhost",  # Optional, default localhost
-    "PORT": 6379,       # Optional, default 6379
-    "PASSWORD": None,   # Optional, default None
-    "MAP_CACHE_DB": 0   # Optional, default 0
+# drf
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+
 }
+
+# jwt
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+
+    'AUTH_HEADER_TYPES': ('KortURL',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type'
+}
+
+
+# redis
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+REDIS_PASSWORD = None
+MAP_CACHE_DB = 0
+BROKER_DB = 1
+RESULT_DB = 2
+
+# celery
+# REDIS_PASSWORD is none
+CELERY_BROKER_URL = 'redis://{}:{}/{}'.format(REDIS_HOST, REDIS_PORT, BROKER_DB)
+CELERY_RESULT_BACKEND = 'redis://{}:{}/{}'.format(REDIS_HOST, REDIS_PORT, RESULT_DB)
+# REDIS_PASSWORD is not none
+# CELERY_BROKER_URL = 'redis://:{}@{}:{}/{}'.format(REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, BROKER_DB)
+# CELERY_RESULT_BACKEND = 'redis://:{}@{}:{}/{}'.format(REDIS_PASSWORD, REDIS_HOST, REDIS_PORT, RESULT_DB)
+
+CELERY_TIMEZONE = 'Asia/Shanghai'
 
 KORT_URL = {
     # website static
