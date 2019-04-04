@@ -13,12 +13,19 @@ class StatisticView(View):
     """
     图表统计类视图
     """
+
+    @staticmethod
+    def remove_duplication(original_list):
+        new_list = list(set(original_list))
+        new_list.sort(key=original_list.index)
+        return new_list
+
     def get_views_count_data(self, current_url_logs):
         """
         访问量图表数据
         """
-        date_times = current_url_logs.values_list('created_at__year', 'created_at__month', 'created_at__day')
-        unique_dates = list(set(list(date_times)))
+        date_times = current_url_logs.order_by('created_at').values_list('created_at__year', 'created_at__month', 'created_at__day')
+        unique_dates = self.remove_duplication(list(date_times))
         dates = []
         view_counts = []
         for date_tuple in unique_dates:
