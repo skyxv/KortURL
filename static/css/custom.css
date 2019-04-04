@@ -176,3 +176,11 @@
     margin-right: 2%;
     font-size: 20px;
 }
+
+.table_th {
+    background-color: #E6E8EB;
+}
+
+.api {
+    border-bottom:5px solid #00CCFF;
+}
