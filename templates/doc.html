@@ -2,93 +2,245 @@
 {% load static %}
 {% load custom_tags %}
 {% block title %}接口文档{% endblock title %}
-{% block body_style %}style="background-color: white;"{% endblock body_style %}
-{% block extra_header %}
-<link rel="stylesheet" href="{% static 'css/api.css' %}">
-{% endblock extra_header %}
 
 {% block body %}
-    <div id="cont">
-    <div class='fun'>
-        <br>
-        <br>
-        <div class='lineface'>一、全局说明 </div>
-        <div class='says'>
-           本系统的接口认证使用通用的JSON Web Token方式。<br>
-        </div>
-    </div>
-    <div class='fun'>
-        <div class='lineface'>二、接口文档</div>
+    <div class="doc_body">
+            <h2>{{ "KortURL"| get_site_name }}接口文档</h2>
+            <hr>
+        <div class="container-fluid">
+            <div class="api">
+            <h3>获取令牌</h3>
+        <h2><span class="badge badge_post">POST</span><strong>/api/token/</strong></h2>
+            <table class="table table-bordered" style="width: 50%;">
+                <thead>
+                <tr>
+                    <th class="table_th">请求参数</th>
+                    <th class="table_th">类型</th>
+                    <th class="table_th">必填</th>
+                    <th class="table_th">备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>username</td>
+                    <td><strong>String</strong></td>
+                    <td>是</td>
+                    <td>账号</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td><strong>String</strong></td>
+                    <td>是</td>
+                    <td>密码</td>
+                </tr>
+                </tbody>
+            </table>
 
-        <a name="获取令牌接口"></a>
-        <span class='le'>#.<em>获取令牌</em> <b>描述:用来获取访问接口的令牌</b></span>
-        <span class='ri'>方式:<em> POST</em></span>
-        <h1><em>URL:</em>    <span style="color: dimgray;">/api/token/</span></h1>
-        <div class='says'>传参示例：
-<pre class="intersays">
+                    <div>请求示例：
+<pre class="pre_font">
     {
-        "username":"",
-        "password":""
+        "username":"KortURL",
+        "password":"123456"
     }
 </pre>
 
-        </div>
-        <div class='says'>返回示例：
-    <pre class="intersays">
+                    </div>
+
+            <table class="table table-bordered" style="width: 50%;">
+                <thead>
+                <tr>
+                    <th class="table_th">返回参数</th>
+                    <th class="table_th">类型</th>
+                    <th class="table_th">备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>refresh</td>
+                    <td><strong>String</strong></td>
+                    <td>用于在访问令牌过期时获取新的访问令牌的刷新令牌</td>
+                </tr>
+                <tr>
+                    <td>access</td>
+                    <td><strong>String</strong></td>
+                    <td>访问令牌</td>
+                </tr>
+                </tbody>
+            </table>
+                <div>返回示例：
+    <pre class="pre_font">
     {
-        "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1NTM5MzY1NTcsInRva2VuX3R5cGUiOiJyZWZyZXNoIiwianRpIjoiY2JkOTg0ZWQzOTlmNGRiZmEwZGYzZTJiMGNhZWM2YzQifQ.S_xcMrRTx3YjB_TwcUo1-n3tmW9Ae6WiufEwaxu9ahw",
+        "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ3HAiOjE1NTM5MzY1NTcsInRva2VuX3R5cGUiOiJyZWZyZXNoIiwianRpIjoiY2JkOTg0ZWQzOTlmNGRiZmEwZGYzZTJiMGNhZWM2YzQifQ.S_xcMrRTx3YjB_TwcUo1-n3tmW9Ae6WiufEwaxu9ahw",
         "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1NTM4NTA0NTcsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJqdGkiOiJjZTBiZjY2OWI2ZjU0N2Y2OGY3MGQ2MmE0OWE0ZmQ5MiJ9.qp2ym9AW19aORXp9ePI9zKi5UmTLfQfCxKkAlUKnrk0"
     }
     </pre>
-            <code>refresh</code>为令牌过期时用来获取新令牌的令牌。<br>
-            <code>access</code>为访问令牌。
+                </div>
         </div>
-<br>
-        <a name="访问接口"></a>
-        <span class='le'>#.<em>访问接口</em> <b>描述:访问接口的方式</b></span>
-        <span class='ri'>方式:<em> GET/POST</em></span>
-        <div class='says'>传参示例：
-<pre class="intersays">
+
+            <div class="api">
+            <h3>身份验证</h3>
+            <table class="table table-bordered" style="width: 50%;">
+                <thead>
+                <tr>
+                    <th class="table_th">说明</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Header: <code>Authorization:KortURL 你的访问令牌</code><br>
+                        <code>KortURL</code>可在配置文件中修改。
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>请求示例：
+<pre class="pre_font">
     curl \
-  -H "Authorization: KortURL eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiY29sZF9zdHVmZiI6IuKYgyIsImV4cCI6MTIzNDU2LCJqdGkiOiJmZDJmOWQ1ZTFhN2M0MmU4OTQ5MzVlMzYyYmNhOGJjYSJ9.NHlztMGER7UADHZJlxNG0WSi22a2KaYSfd1S-AuT7lU" \
+    -H "Authorization: KortURL eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiY29sZF9zdHVmZiI6IuKYgyIsImV4cCI6MTIzNDU2LCJqdGkiOiJmZDJmOWQ1ZTFhN2M0MmU4OTQ5MzVlMzYyYmNhOGJjYSJ9.NHlztMGER7UADHZJlxNG0WSi22a2KaYSfd1S-AuT7lU" \
   http://localhost:8000/api/some-protected-view/
 </pre>
+
+            </div>
         </div>
-<br>
-        <a name="刷新令牌"></a>
-        <span class='le'>#.<em>刷新令牌</em> <b>描述:用来刷新令牌的接口</b></span>
-        <span class='ri'>方式:<em> POST</em></span>
-        <h1><em>URL:</em>    <span style="color: dimgray;">/api/token/refresh/</span></h1>
-        <div class='says'>传参示例：这里传递的<code>refresh</code>为获取令牌时得到的。
-<pre class="intersays">
-    curl \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImNvbGRfc3R1ZmYiOiLimIMiLCJleHAiOjIzNDU2NywianRpIjoiZGUxMmY0ZTY3MDY4NDI3ODg5ZjE1YWMyNzcwZGEwNTEifQ.aEoAYkSJjoWH1boshQAaTkf8G3yn0kapko6HFRt7Rh4"}' \
-  http://localhost:8000/api/token/refresh/
+
+            <div class="api">
+            <h3>刷新令牌</h3>
+        <h2><span class="badge badge_post">POST</span><strong>/api/token/refresh/</strong></h2>
+            <table class="table table-bordered" style="width: 50%;">
+                <thead>
+                <tr>
+                    <th class="table_th">请求参数</th>
+                    <th class="table_th">类型</th>
+                    <th class="table_th">必填</th>
+                    <th class="table_th">备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>refresh</td>
+                    <td><strong>String</strong></td>
+                    <td>是</td>
+                    <td>刷新令牌(第一次获取访问令牌时得到的)</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div>请求示例：
+<pre class="pre_font">
+    {
+        "refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImNvbGRfc3R1ZmYiOiLimIMiLCJleHAiOjIzNDU2NywianRpIjoiZGUxMmY0ZTY3MDY4NDI3ODg5ZjE1YWMyNzcwZGEwNTEifQ.aEoAYkSJjoWH1boshQAaTkf8G3yn0kapko6HFRt7Rh4"
+    }
 </pre>
 
-        </div>
-        <div class='says'>返回示例：
-    <pre class="intersays">
+            </div>
+
+            <table class="table table-bordered" style="width: 50%;">
+                <thead>
+                <tr>
+                    <th class="table_th">返回参数</th>
+                    <th class="table_th">类型</th>
+                    <th class="table_th">备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>access</td>
+                    <td><strong>String</strong></td>
+                    <td>新的访问令牌</td>
+                </tr>
+                </tbody>
+            </table>
+                <div>返回示例：
+    <pre class="pre_font">
     {
         "access":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiY29sZF9zdHVmZiI6IuKYgyIsImV4cCI6MTIzNTY3LCJqdGkiOiJjNzE4ZTVkNjgzZWQ0NTQyYTU0NWJkM2VmMGI0ZGQ0ZSJ9.ekxRxgb9OKmHkfy-zs1Ro_xs1eMLXiR17dIDBVxeT-w"
     }
     </pre>
+                </div>
         </div>
-<br>
 
-    <div class="info">
-        <b>*</b> 本接口文档最后更新时间：<span class="red"><?php echo date("Y-m-d H:i:s",filemtime(__FILE__));?></span><br>
-    </div>
-    </div>
+            <div class="api">
+            <h3>缩短网址</h3>
+        <h2><span class="badge badge_post">POST</span><strong>/api/short_urls/</strong></h2>
+            <table class="table table-bordered" style="width: 50%;">
+                <thead>
+                <tr>
+                    <th class="table_th">请求参数</th>
+                    <th class="table_th">类型</th>
+                    <th class="table_th">必填</th>
+                    <th class="table_th">备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>raw_urls</td>
+                    <td><strong>Array</strong></td>
+                    <td>是</td>
+                    <td>长网址的数组/列表, 单次请求最大长度为100个,最小长度1个</td>
+                </tr>
+                </tbody>
+            </table>
 
+            <div>请求示例：
+<pre class="pre_font">
+    {
+	    "raw_urls": ["https://www.google.com", "https://cn.bing.com", "https://github.com"]
+    }
+</pre>
 
-        <!--浮动接口导航栏-->
-        <div id="floatMenu">
-          <ul class="menu"></ul>
+            </div>
+
+            <table class="table table-bordered" style="width: 50%;">
+                <thead>
+                <tr>
+                    <th class="table_th">返回参数</th>
+                    <th class="table_th">类型</th>
+                    <th class="table_th">备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>long_url</td>
+                    <td><strong>String</strong></td>
+                    <td>长网址</td>
+                </tr>
+                <tr>
+                    <td>short_url</td>
+                    <td><strong>String</strong></td>
+                    <td>短网址</td>
+                </tr>
+                <tr>
+                    <td>invalid_urls</td>
+                    <td><strong>Array</strong></td>
+                    <td>无效的长网址列表</td>
+                </tr>
+                </tbody>
+            </table>
+                <div>返回示例：
+    <pre class="pre_font">
+    {
+        "results": [
+            {
+                "long_url": "https://www.google.com",
+                "short_url": "https://localhost:8000/AJKzcmj"
+            },
+            {
+                "long_url": "https://cn.bing.com",
+                "short_url": "https://localhost:8000/VWx4mqz"
+            },
+            {
+                "long_url": "https://github.com",
+                "short_url": "https://localhost:8000/VBM3yNu"
+            }
+        ],
+        "invalid_urls": []
+    }
+    </pre>
+                </div>
         </div>
+
     </div>
+</div>
 
 
 {% endblock body %}
@@ -96,19 +248,3 @@
 {% block footer %}
 {% endblock footer %}
 
-{% block extra_js %}
-<script language="javascript">
-var name = "#floatMenu";
-var menuYloc = null;
-$(document).ready(function(){
-    $(".le > em").each(function(index, element){
-        $(".menu").append(" <li><a href='#"+ $(this).text() +"'>"+ $(this).text()+"</a></li>");
-    });
-    menuYloc = parseInt($(name).css("top").substring(0,$(name).css("top").indexOf("px")))
-    $(window).scroll(function () {
-        offset = menuYloc+$(document).scrollTop()+"px";
-        $(name).animate({top:offset},{duration:500,queue:false});
-    });
-});
-</script>
-{% endblock extra_js %}
