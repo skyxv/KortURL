@@ -52,29 +52,13 @@ class LinkMapManager(models.Manager):
 
 class AccessLogManager(models.Manager):
 
-    @staticmethod
-    def get_ip_address(request):
-        """
-        获取ip地址
-        """
-        ip = request.META.get("HTTP_X_FORWARDED_FOR", "")
-        if not ip:
-            ip = request.META.get('REMOTE_ADDR', "")
-        client_ip = ip.split(",")[-1].strip() if ip else ""
-        return client_ip
-
     def get_log_by_code(self, code):
         return self.filter(code=code).order_by('created_at')
 
-    def build_log_from_request(self, request, code):
-        ip = self.get_ip_address(request)
+    def build_log_from_request(self, ip, code, user_agent_dict):
         ip_data = ip_query.get_location(ip) if ip != "127.0.0.1" else {}
-        user_agent = request.user_agent
         self.create(code=code, ip=ip, country=ip_data.get("country", None),
                     province=ip_data.get("province", None),
                     city=ip_data.get("city", None), isp=ip_data.get("isp", None),
-                    browser_name=user_agent.browser.family,
-                    os_name=user_agent.os.family,
-                    device=user_agent.device.family, is_mobile=user_agent.is_mobile,
-                    is_pc=user_agent.is_pc, is_bot=user_agent.is_bot)
+                    **user_agent_dict)
 

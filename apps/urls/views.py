@@ -53,12 +53,34 @@ class RedirectView(View):
     """
     将短网址根据映射重定向至源网址
     """
+    @staticmethod
+    def get_ip_address(request):
+        """
+        获取ip地址
+        """
+        ip = request.META.get("HTTP_X_FORWARDED_FOR", "")
+        if not ip:
+            ip = request.META.get('REMOTE_ADDR', "")
+        client_ip = ip.split(",")[-1].strip() if ip else ""
+        return client_ip
+
+    @staticmethod
+    def get_user_agent_dict(request):
+        user_agent = dict()
+        user_agent["browser_name"] = request.user_agent.browser.family
+        user_agent["os_name"] = request.user_agent.os.family
+        user_agent["device"] = request.user_agent.device.family
+        user_agent["is_mobile"] = request.user_agent.is_mobile
+        user_agent["is_pc"] = request.user_agent.is_mobile
+        user_agent["is_bot"] = request.user_agent.is_mobile
+        return user_agent
 
     def get(self, request, code):
         code = code[:config.code_length]
         url = LinkMap.objects.get_url_by_code(code)
         if not url:
             raise Http404
-        record_log_and_visit_count.delay(request, code)
+        record_log_and_visit_count.delay(self.get_ip_address(request), code,
+                                         self.get_user_agent_dict(request))
         # 302重定向
         return HttpResponseRedirect(url)
