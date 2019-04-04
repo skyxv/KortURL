@@ -5,8 +5,9 @@ from django.views import View
 from django.http import HttpResponseRedirect, Http404
 
 from apps.urls.forms import ShortenUrlForm, ReduceForm
-from apps.urls.models import LinkMap, AccessLogs
+from apps.urls.models import LinkMap
 from apps.utils.get_configs import config
+from apps.urls.tasks import record_log_and_visit_count
 
 
 class ShortenUrl(View):
@@ -58,8 +59,6 @@ class RedirectView(View):
         url = LinkMap.objects.get_url_by_code(code)
         if not url:
             raise Http404
-        # TODO 将日志记录和访问次数记录放入队列中异步处理以加快跳转速度
-        LinkMap.objects.add_hit_count(code)
-        AccessLogs.objects.build_log_from_request(request, code)
+        record_log_and_visit_count.delay(request, code)
         # 302重定向
         return HttpResponseRedirect(url)
