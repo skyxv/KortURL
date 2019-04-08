@@ -38,7 +38,7 @@ pip3 install pipenv
 ```
 在项目根目录下:
 ```text
-pipenv install
+pipenv sync
 ```
 #### redis安装
 ```text
@@ -106,9 +106,9 @@ KortURL 设置:
 
 以上参数设置完毕后:
 ```text
-python manage.py makemigrations
+pipenv run python manage.py makemigrations
 
-python manage.py migrate
+pipenv run python manage.py migrate
 
 ```
 
@@ -133,12 +133,12 @@ python manage.py migrate
 
 ### 5.celery启动
 ```text
-nohup celery -A KortURL worker -l info --logfile logs/celery.log &
+pipenv run nohup celery -A KortURL worker -l info --logfile logs/celery.log &
 ```
 
 ### 6.uwsgi启动
 ```text
-uwsgi --ini 你的uwsgi配置文件名(.ini格式)
+pipenv run uwsgi --ini 你的uwsgi配置文件名(.ini格式)
 ```
 
 [1]: https://yandenghong.github.io/2018/09/14/django_project_deploy/
