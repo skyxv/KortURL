@@ -104,6 +104,15 @@ KortURL 设置:
 * KORT_URL.CODE_MAX_LENGTH: 短码的长度。默认7。
 * KORT_URL.CODE_ALLOWED_CHARS: 指定构成短码的字符。默认由大小写英文字母和数字组成。
 
+以上参数设置完毕后:
+```text
+python manage.py makemigrations
+
+python manage.py migrate
+
+```
+
+
 ### 3.uwsgi参数
 * chdir: 项目在服务器中的目录(绝对路径)。
 * master: 主进程模式。
