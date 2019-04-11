@@ -69,11 +69,11 @@
         },
         "djangorestframework-simplejwt": {
             "hashes": [
-                "sha256:9e0bde3663c16ff3206c174806ba139d6f62b536332556a0fa56f723a6245fd4",
-                "sha256:e0baee46d6442e30ccc8f12ffc81bfbcc3580de0e9bd7135b4f9199afa4fbedb"
+                "sha256:6fbbf385fec78e1e081c8346947ba9a8a8c6e08afadd6cd1139cbc39c123628e",
+                "sha256:ac332afac498a031218abe7b5220f77c6619dc5b0b3128cb9181fc03fdb8cb34"
             ],
             "index": "pypi",
-            "version": "==4.1.2"
+            "version": "==4.1.5"
         },
         "idna": {
             "hashes": [
@@ -98,10 +98,10 @@
         },
         "pytz": {
             "hashes": [
-                "sha256:32b0891edff07e28efe91284ed9c31e123d84bea3fd98e1f72be2508f43ef8d9",
-                "sha256:d5f05e487007e29e03409f9398d074e158d920d36eb82eaf66fb1136b0c5374c"
+                "sha256:303879e36b721603cc54604edcac9d20401bdbe31e1e4fdee5b9f98d5d31dfda",
+                "sha256:d747dd3d23d77ef44c6a3526e274af6efeb0a6f1afd5a69ba4d5be4098c8e141"
             ],
-            "version": "==2018.9"
+            "version": "==2019.1"
         },
         "pyyaml": {
             "hashes": [
@@ -160,11 +160,11 @@
         },
         "user-agents": {
             "hashes": [
-                "sha256:0ce5b1b44c8d11b9f3d6152ef9c8a2109409273ef8de600d577f549a3a3cbc6c",
-                "sha256:643d16772280052b546d956971d719989ef6dc9b17d9ff0386aa21391a038039"
+                "sha256:792869b990a244f71efea1cb410ecaba99a270a64c5ac37d365bde5d70d6a2fa",
+                "sha256:7af7419d61ce8f72ad487cc77ea3b4d1dcaa4cbb7b6df533a7c7aa3ccc44e5b3"
             ],
             "index": "pypi",
-            "version": "==1.1.0"
+            "version": "==2.0"
         },
         "uwsgi": {
             "hashes": [
