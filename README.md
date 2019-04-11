@@ -41,7 +41,7 @@ pip3 install pipenv
 ```
 在项目根目录下:
 ```text
-pipenv sync
+pipenv update
 ```
 #### redis安装
 ```text
