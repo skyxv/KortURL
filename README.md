@@ -7,20 +7,7 @@ KortURL
 
 
 ## 项目介绍
-一站式的短网址服务,提供浏览器端及API两种方式缩短网址,　细粒度的流量追踪与多个维度的数据分析。欢迎Watch & Star & Issue & PR!
-
-首页:
-![Alt text](static/imgs/index_page.png)
-
-历史记录页:
-![Alt text](static/imgs/history.png)
-
-数据分析页
-![Alt text](static/imgs/graph1.png)
-
-![Alt text](static/imgs/graph2.png)
-
-![Alt text](static/imgs/graph3.png)
+一站式的短网址服务,提供浏览器端及API两种方式缩短网址,　细粒度的流量追踪与多个维度的数据分析。欢迎Issue & PR!
 
 * 浏览器端长网址的缩短，还原。
 * 缩短网址API。
@@ -32,6 +19,25 @@ KortURL
 * 浏览器的统计与图表展示。
 * 运营商的统计与图表展示。
 * 国内访问分布的统计与图表展示。
+
+### 缩短网址页
+![Alt text](static/imgs/index_page.png)
+### 历史记录页
+![Alt text](static/imgs/history.png)
+### 访问量
+![Alt text](static/imgs/001.png)
+### 24小时访问趋势
+![Alt text](static/imgs/002.png)
+### 访问设备
+![Alt text](static/imgs/003.png)
+### 操作系统
+![Alt text](static/imgs/004.png)
+### 浏览器
+![Alt text](static/imgs/005.png)
+### 运营商
+![Alt text](static/imgs/006.png)
+### 国内访问分布
+![Alt text](static/imgs/007.png)
 
 ## 部署(以Ubuntu16.04为例)
 ### 1.环境与依赖
