@@ -1,7 +1,6 @@
 KortURL
 =======
 [![Support Python Version](http://img.shields.io/badge/Python-3.5+-brightgreen.svg)](https://www.python.org/)
-[![](https://travis-ci.org/yandenghong/KoryURL.svg?branch=master)](https://travis-ci.org/yandenghong/KortURL)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 一站式的短网址服务,提供浏览器端及API两种方式缩短网址,　实时的，细粒度的流量追踪与多个维度的数据分析。
