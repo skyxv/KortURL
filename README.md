@@ -1,13 +1,13 @@
 KortURL
 =======
-[![Support Python Version](http://img.shields.io/badge/Python-3.5+-brightgreen.svg)](https://www.python.org/)
+[![Support Python Version](http://img.shields.io/badge/Python-3.5|3.6-brightgreen.svg)](https://www.python.org/)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
-一站式的短网址服务,提供浏览器端及API两种方式缩短网址,　实时的，细粒度的流量追踪与多个维度的数据分析。
+One-stop short URL service based on django.基于django的一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的,实时的,细粒度的流量追踪。
 
 
 ## 项目介绍
-一站式的短网址服务,提供浏览器端及API两种方式缩短网址,　细粒度的流量追踪与多个维度的数据分析。欢迎Issue & PR!
+One-stop short URL service based on django.基于django的一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的,实时的,细粒度的流量追踪。欢迎Issue & PR!
 
 * 浏览器端长网址的缩短，还原。
 * 缩短网址API。
