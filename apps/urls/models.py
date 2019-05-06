@@ -11,7 +11,7 @@ class LinkMap(models.Model):
     """
     长网址与短码的映射
     """
-    url = models.TextField("长网址", unique=True)
+    url = models.URLField("长网址", max_length=255, unique=True)
     code = models.CharField("短码", max_length=settings.KORT_URL.get('CODE_MAX_LENGTH', 16), unique=True)
     hit_count = models.IntegerField("打开次数", default=0)
     init_access_at = models.DateTimeField("初次访问时间", null=True, blank=True)
