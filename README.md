@@ -47,7 +47,7 @@ pip3 install pipenv
 ```
 在项目根目录下:
 ```text
-pipenv update
+pipenv install
 ```
 #### redis安装
 ```text
@@ -57,25 +57,13 @@ sudo apt-get install redis-server
 > 安装后配置文件在`/etc/redis/redis.conf`。
 
 #### 数据库选择
-Django ORM支持的数据库，任意一种都可以。但为了节约时间，建议你使用mysql作为持久化数据库。
+Django ORM支持的数据库，推荐`mysql` or `postgre`。
 
 以mysql为例:
-
-安装mysql:
 ```text
-sudo apt-get install mysql-server
-```
-
-安装成功后:
-
-```text
-pipenv install pymysql
-```
-安装成功后，在KortURL/\_\_init__.py文件中增加:
-```python
-import pymysql
-
-pymysql.install_as_MySQLdb()
+sudo apt-get install python3-dev
+sudo apt-get install libmysqld-dev
+pipenv install mysqlclient
 ```
 
 
