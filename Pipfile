@@ -16,6 +16,7 @@ djangorestframework-simplejwt = "*"
 redis = "*"
 celery = "*"
 uwsgi = "*"
+mysqlclient = "*"
 
 [requires]
 python_version = "3.5"
