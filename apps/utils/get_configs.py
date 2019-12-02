@@ -9,6 +9,10 @@ from django.conf import settings
 
 class Configuration:
     @property
+    def flow_rate(self):
+        return settings.KORT_URL.get('FLOW_RATE', 5000000)  # if not set, 5MB/s
+
+    @property
     def site_name(self):
         return settings.KORT_URL.get('SITE_NAME', "KortURL")
 

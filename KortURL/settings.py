@@ -183,6 +183,6 @@ KORT_URL = {
     'SITE_NAME': "KortURL",   # Optional
     'COMPANY_NAME': "KortURL",  # Optional, display for footer
     'BACKGROUND_COLOR': "#3498DB",  # Optional
-
+    'FLOW_RATE': 5000000  # ,default 5MB/s
 }
 
