@@ -184,9 +184,5 @@ KORT_URL = {
     'COMPANY_NAME': "KortURL",  # Optional, display for footer
     'BACKGROUND_COLOR': "#3498DB",  # Optional
 
-    # custom short code
-    'CODE_MAX_LENGTH': 7,  # Optional, don't set this value too small, otherwise your link pool will be exhausted soon.
-    'CODE_ALLOWED_CHARS': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',  # Optional
-
 }
 
