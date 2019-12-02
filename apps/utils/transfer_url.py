@@ -4,21 +4,22 @@
 *  Software: PyCharm
 *  Blog:     https://yandenghong.github.io
 """
-from django.utils.crypto import get_random_string
+from string import digits, ascii_lowercase, ascii_uppercase
 
-from apps.utils.get_configs import config
-
-
-class CodeGenerator:
-    """
-    生成短码
-    """
-    def __init__(self):
-        self.code_max_length = config.code_length
-        self.code_allow_chars = config.code_allowed_chars
-
-    def get_code(self):
-        return get_random_string(length=self.code_max_length, allowed_chars=self.code_allow_chars)
+_alpha = digits + ascii_lowercase + ascii_uppercase
 
 
-code_generator = CodeGenerator()
+def _ten2any(n, b=64):
+    assert b <= 64 and n > 1
+
+    res = ""
+    while n > 0:
+        n, index = divmod(n, b)
+        res += _alpha[index]
+
+    return res[::-1]
+
+
+def get_code(n):
+    return _ten2any(n, 62)
+
