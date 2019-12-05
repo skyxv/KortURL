@@ -23,7 +23,7 @@ class ShortenUrl(View):
         form = ShortenUrlForm(request.POST)
         if form.is_valid():
             link_map = LinkMap.objects.get_or_create_map(request.user,
-                                                         form.cleaned_data.get('raw_url'))[0]
+                                                         form.cleaned_data.get('raw_url'))
             return render(request, 'shorten_url.html', {"short_url": config.get_short_url_(link_map.code)})
         else:
             return render(request, 'shorten_url.html', {"error": form.errors})

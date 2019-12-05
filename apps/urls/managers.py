@@ -7,7 +7,6 @@
 from django.db import models
 from django.utils.timezone import now
 
-from apps.utils.transfer_url import code_generator
 from apps.utils.redis.client import redis_cli
 from apps.utils.ip_query import ip_query
 
@@ -15,14 +14,11 @@ from apps.utils.ip_query import ip_query
 class LinkMapManager(models.Manager):
 
     def get_or_create_map(self, user, url):
-        code = code_generator.get_code()
-        while self.filter(code=code).exists():
-            code = code_generator.get_code()
-        data = dict()
-        data["created_by"] = user
-        data["url"] = url
-        data["code"] = code
-        return self.get_or_create(url=url, created_by=user, defaults=data)
+        link_map = self.filter(created_by=user, url=url).first()
+        if link_map:
+            return link_map
+        else:
+            return self.create(created_by=user, url=url)
 
     def get_map_by_code(self, user, code):
         return self.filter(code=code, created_by=user).first()
