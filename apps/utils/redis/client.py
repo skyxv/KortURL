@@ -25,8 +25,5 @@ class RedisClient:
     def get_data(self, key):
         return self.client.get(key)
 
-    def set_expire_data(self, key, value, exp_time):
-        return self.client.set(key, value, ex=exp_time)
-
 
 redis_cli = RedisClient()
