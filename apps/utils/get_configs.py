@@ -4,13 +4,19 @@
 *  Software: PyCharm
 *  Blog:     https://yandenghong.github.io
 """
+import re
 from django.conf import settings
 
 
 class Configuration:
     @property
-    def flow_rate(self):
-        return settings.KORT_URL.get('FLOW_RATE', 5000000)  # if not set, 5MB/s
+    def rate(self):
+        pattern = "^[0-9]+\/(day|hour|min|sec)$"
+        rate = settings.KORT_URL.get('IP_RATE')
+        if re.fullmatch(pattern, rate):
+            return rate
+        else:
+            return '30/min'
 
     @property
     def site_name(self):
