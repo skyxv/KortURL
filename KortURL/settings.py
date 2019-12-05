@@ -183,5 +183,5 @@ KORT_URL = {
     'SITE_NAME': "KortURL",   # Optional
     'COMPANY_NAME': "KortURL",  # Optional, display for footer
     'BACKGROUND_COLOR': "#3498DB",  # Optional
-    'IP_RATE': "30/min"  # 10000/day   3000/hour  30/min 2/sec
+    'IP_RATE': "3/sec"  # 10000/day   3000/hour  30/min 2/sec
 }
