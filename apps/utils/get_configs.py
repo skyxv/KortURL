@@ -16,7 +16,7 @@ class Configuration:
         if re.fullmatch(pattern, rate):
             return rate
         else:
-            return '30/min'
+            return '3/sec'
 
     @property
     def site_name(self):
