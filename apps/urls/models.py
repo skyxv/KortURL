@@ -1,8 +1,8 @@
 from django.db import models
-from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from apps.utils.transfer_url import get_code
 from apps.urls.managers import LinkMapManager, AccessLogManager
 from apps.utils.redis.client import redis_cli
 
@@ -11,8 +11,9 @@ class LinkMap(models.Model):
     """
     长网址与短码的映射
     """
-    url = models.URLField("长网址", max_length=255, unique=True)
-    code = models.CharField("短码", max_length=settings.KORT_URL.get('CODE_MAX_LENGTH', 16), unique=True)
+    id = models.BigAutoField(primary_key=True)
+    url = models.URLField("长网址", max_length=255)
+    code = models.CharField("短码", max_length=7, null=True, blank=True, db_index=True)
     hit_count = models.IntegerField("打开次数", default=0)
     init_access_at = models.DateTimeField("初次访问时间", null=True, blank=True)
     created_by = models.ForeignKey("users.UserProfile", on_delete=models.CASCADE, verbose_name="创建人")
@@ -20,6 +21,10 @@ class LinkMap(models.Model):
     updated_at = models.DateTimeField("更新时间", auto_now=True)
 
     objects = LinkMapManager()
+
+    def save_code(self):
+        self.code = get_code(self.id)
+        self.save()
 
     class Meta:
         db_table = "link_map"
@@ -30,9 +35,10 @@ class LinkMap(models.Model):
 @receiver(post_save, sender=LinkMap)
 def create_map_cache(sender, instance=None, created=False, **kwargs):
     """
-    当LinkMap`写入`时，将映射存入redis中
+    当LinkMap`写入`时，先保存长网址的短码，再将长网址与对应短码写入redis缓存
     """
     if created:
+        instance.save_code()
         redis_cli.set_data(instance.code, instance.url)
 
 
