@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'apps.utils.parse_user_agents.user_agents_middleware.UserAgentMiddleware',
+    'apps.utils.throttles.middleware.ThrottleMiddleware',
 ]
 
 ROOT_URLCONF = 'KortURL.urls'
