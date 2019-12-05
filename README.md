@@ -1,47 +1,54 @@
 KortURL
 =======
-[![Support Python Version](http://img.shields.io/badge/Python-3.5|3.6-brightgreen.svg)](https://www.python.org/)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
+[![Support Python Version](http://img.shields.io/badge/Python-3.5|3.6|3.7|3.8-brightgreen.svg?style=flat-square)](https://www.python.org/)
+![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)
 
-One-stop short URL service based on django.基于django的一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的,实时的,细粒度的流量追踪。
+One-stop short URL service.一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的流量追踪。
 
 
-## 项目介绍
-One-stop short URL service based on django.基于django的一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的,实时的,细粒度的流量追踪。欢迎Issue & PR!
+## [项目介绍](#项目介绍)
+One-stop short URL service.一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的流量追踪。欢迎Issue & PR!
 
-* 浏览器端长网址的缩短，还原。
-* 缩短网址API。
-* 简单而有效的双端认证系统,规避恶意攻击,并极其方便开设账号。
-* 每日访问量的统计与图表展示。
-* 24小时访问趋势的统计与图表展示。
-* 访问设备的统计与图表展示。
-* 访客操作系统的统计与图表展示。
-* 浏览器的统计与图表展示。
-* 运营商的统计与图表展示。
-* 国内访问分布的统计与图表展示。
+本项目为自带分析统计的短网址服务，提供浏览器端长网址的缩短，还原，以及批量缩短网址API。
+同时有账号系统，匿名用户只能访问短网址然后跳转。
 
-### 缩短网址页
-![Alt text](static/imgs/index_page.png)
-### 历史记录页
-![Alt text](static/imgs/history.png)
-### 访问量
-![Alt text](static/imgs/001.png)
-### 24小时访问趋势
-![Alt text](static/imgs/002.png)
-### 访问设备
-![Alt text](static/imgs/003.png)
-### 操作系统
-![Alt text](static/imgs/004.png)
-### 浏览器
-![Alt text](static/imgs/005.png)
-### 运营商
-![Alt text](static/imgs/006.png)
-### 国内访问分布
-![Alt text](static/imgs/007.png)
+短码生成采用了自增序列算法，根据数据库自增id生成短码，永不重复。
 
-## 部署(以Ubuntu16.04为例)
-### 1.环境与依赖
-#### 依赖安装:
+为了提高系统并发量，使用redis作为缓存，以及异步队列(配合celery使用)，
+将统计分析工作异步执行，与短网址服务本身的功能解耦的同时，提高了请求处理速度。
+
+安全方面，针对匿名用户恶意高频访问做了限制速率的中间件，速率可配置。
+
+
+目前统计的维度:
+* 每日访问量
+* 24小时访问趋势
+* 访问设备
+* 访客操作系统
+* 浏览器
+* 运营商
+* 国内访问分布
+
+
+<table>
+    <tr>
+        <td ><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/395e33ab103b29e8.png' /></center></td>
+        <td ><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/e616f2064dbc8d99.png' /></center></td>
+        <td ><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/040e2925f863b092.png' /></center></td>
+    </tr>
+    <tr>
+        <td><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/41b20aa70ca7339e.png' /></center></td>
+        <td ><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/b19827665cbd3e2c.png' /></center></td>
+        <td><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/dc6534cd50bfc812.png' /></center></td>
+    </tr>
+    <tr>
+        <td><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/2166bcdc4e50c809.png' /></center></td>
+        <td><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/9fb337622707f9b5.png' /></center></td>
+        <td><center><img src = 'https://ftp.bmp.ovh/imgs/2019/12/10d418bd1ea11459.png' /></center></td>  
+    </tr>
+</table>
+
+## [部署(以Ubuntu16.04为例)](#)
 ```text
 pip3 install pipenv
 ```
@@ -49,15 +56,15 @@ pip3 install pipenv
 ```text
 pipenv install
 ```
-#### redis安装
+#### [redis安装](#)
 ```text
 sudo apt-get update
 sudo apt-get install redis-server
 ```
 > 安装后配置文件在`/etc/redis/redis.conf`。
 
-#### 数据库选择
-Django ORM支持的数据库，推荐`mysql` or `postgre`。
+#### [数据库](#)
+Django ORM支持的数据库，推荐`mysql`。
 
 以mysql为例:
 ```text
@@ -67,7 +74,7 @@ pipenv install mysqlclient
 ```
 
 
-### 2.参数设置
+#### [参数设置](#)
 配置文件位于KortURL/settings.py
 
 API身份验证模块:
@@ -97,10 +104,7 @@ KortURL 设置:
 
 > 如果有需要，可将static/imgs中的`favicon.ico`和`logo.png`替换为自己想要的。文件名保持一致即可。
 
-**自定义短码**:
-* KORT_URL.CODE_MAX_LENGTH: 短码的长度。默认7。
-* KORT_URL.CODE_ALLOWED_CHARS: 指定构成短码的字符。默认由大小写英文字母和数字组成。
-
+#### [迁移](#)
 以上参数设置完毕后:
 ```text
 pipenv run python manage.py makemigrations
@@ -109,8 +113,22 @@ pipenv run python manage.py migrate
 
 ```
 
+#### [修改自增初值](#)
+连接mysql后执行:
+```text
+use kort_url;
 
-### 3.uwsgi参数
+alter table link_map auto_increment = 60000000000 ;
+```
+看到如下结果即修改成功。
+```text
+mysql> alter table link_map auto_increment = 60000000000 ;
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+```
+
+#### [uwsgi部分参数说明](#)
 * chdir: 项目在服务器中的目录(绝对路径)。
 * master: 主进程模式。
 * home: 虚拟环境目录(绝对路径)。
@@ -125,18 +143,18 @@ pipenv run python manage.py migrate
 * daemonize: 后台运行并把日志存到指定位置。例如：`你的日志目录/uwsgi.log`。
 * log-maxsize: 日志大小，单位是字节(Byte)。当大于这个大小会进行切分(按需设置)。
 
-### 4.nginx + uwsgi配置
-请看我的博客[nginx+uwsgi+django+celery部署日志][1], [nginx完整示例配置详解][2]。
-
-### 5.celery启动
+#### [运行celery](#)
 ```text
 pipenv run nohup celery -A KortURL worker -l info --logfile logs/celery.log &
 ```
 
-### 6.uwsgi启动
+#### [运行服务](#)
 ```text
 pipenv run uwsgi --ini 你的uwsgi配置文件名(.ini格式)
 ```
+
+#### [附](#)
+[nginx+uwsgi+django+celery部署日志][1], [nginx完整示例配置详解][2]。
 
 [1]: https://yandenghong.github.io/2018/09/14/django_project_deploy/
 [2]: https://yandenghong.github.io/2019/03/21/nginx_conf/
