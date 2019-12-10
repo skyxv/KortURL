@@ -25,13 +25,16 @@ class LinkMapManager(models.Manager):
 
     def get_url_by_code(self, code):
         cache_url = redis_cli.get_data(code)
-        if cache_url:
+        if cache_url != 0:
             return cache_url
         else:
             link_map = self.filter(code=code).first()
             if link_map:
                 redis_cli.set_data(link_map.code, link_map.url)
                 return link_map.url
+            # 将数据库中没有的短码也放在缓存中，用0标识数据库中尚未存在该值
+            else:
+                redis_cli.set_data(code, 0)
 
     def add_hit_count(self, code):
         """
