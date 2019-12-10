@@ -3,11 +3,11 @@ KortURL
 [![Support Python Version](http://img.shields.io/badge/Python-3.5|3.6|3.7|3.8-brightgreen.svg?style=flat-square)](https://www.python.org/)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)
 
-One-stop short URL service.一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的流量追踪。
+One-stop short url service.一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的流量追踪。
 
 
 ## [项目介绍](#项目介绍)
-One-stop short URL service.一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的流量追踪。欢迎Issue & PR!
+One-stop short url service.一站式的短网址服务,提供浏览器端及API两种方式缩短网址,以及可视化的流量追踪。欢迎Issue & PR!
 
 本项目为自带分析统计的短网址服务，提供浏览器端长网址的缩短，还原，以及批量缩短网址API。
 同时有账号系统，匿名用户只能访问短网址然后跳转。
