@@ -12,13 +12,6 @@ One-stop short URL service.一站式的短网址服务,提供浏览器端及API�
 本项目为自带分析统计的短网址服务，提供浏览器端长网址的缩短，还原，以及批量缩短网址API。
 同时有账号系统，匿名用户只能访问短网址然后跳转。
 
-短码生成采用了自增序列算法，根据数据库自增id生成短码，永不重复。
-
-为了提高系统并发量，使用redis作为缓存，以及异步队列(配合celery使用)，
-将统计分析工作异步执行，与短网址服务本身的功能解耦的同时，提高了请求处理速度。
-
-安全方面，针对匿名用户恶意高频访问做了限制速率的中间件，速率可配置。
-
 
 目前统计的维度:
 * 每日访问量
@@ -101,6 +94,7 @@ KortURL 设置:
 * KORT_URL.SITE_NAME: 站名。默认`KortURL`。将会显示在页面上的导航栏。
 * KORT_URL.COMPANY_NAME: 企业名称。默认`KortURL`。将会显示在页面的footer。
 * KORT_URL.BACKGROUND_COLOR: 页面背景色。如果你不喜欢默认的背景色。那尽管修改它!
+* KORT_URL.IP_RATE: 限制每个ip的访问频率，可选周期有`day`, `hour`, `min`, `sec`，默认`3/sec`，即每个ip每秒最多3次。
 
 > 如果有需要，可将static/imgs中的`favicon.ico`和`logo.png`替换为自己想要的。文件名保持一致即可。
 
@@ -128,33 +122,31 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 ```
 
-#### [uwsgi部分参数说明](#)
-* chdir: 项目在服务器中的目录(绝对路径)。
-* master: 主进程模式。
-* home: 虚拟环境目录(绝对路径)。
-* pidfile = 指定pid文件路径。例如`你的项目路径/uwsgi.pid`。
-* wsgi-file:  Django's wsgi 文件目录(通过django-admin 命令生成的项目目录都会有一个和项目容器名相同的目录,在这个目录下有wsgi.py)。
-* listen: 排队请求数。可以理解为最高并发量,范围是0 - 65000。
-* processes: 最大进程数(建议与cpu数量保持一致)。
-* socket: 与外界连接的端口号, Nginx通过这个端口转发给uWSGI。格式:`:端口号`。
-* touch-reload: 指定一个目录。该目录下文件改动时自动重启。
-* py-auto-reload: Python文件改动时自动重启。不建议开启。
-* vacuum: 当服务器退出的时候自动清理环境。 `true`| `false`
-* daemonize: 后台运行并把日志存到指定位置。例如：`你的日志目录/uwsgi.log`。
-* log-maxsize: 日志大小，单位是字节(Byte)。当大于这个大小会进行切分(按需设置)。
+#### [生产环境下的部署](#)
+原本这里是一些自己写的生产环境部署的内容，后来想了想，文档还是官方的好，所以就只附链接了:
 
-#### [运行celery](#)
+[使用uWSGI和nginx来设置Django和你的web服务器](https://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/tutorials/Django_and_nginx.html)
+
+[部署django-django官方文档](https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/)
+
+
+#### [一些常用命令](#)
+运行celery命令: 
+
+    pipenv run nohup celery -A KortURL worker -l info --logfile logs/celery.log &
+
+uwsgi(如果是虚拟环境级别的uwsgi, 在命令前加上pipenv run):
+* 启动
 ```text
-pipenv run nohup celery -A KortURL worker -l info --logfile logs/celery.log &
+uwsgi --ini 你的uwsgi配置文件名(.ini格式)
 ```
 
-#### [运行服务](#)
+* 停止
 ```text
-pipenv run uwsgi --ini 你的uwsgi配置文件名(.ini格式)
+uwsgi --stop uwsgi.pid
 ```
 
-#### [附](#)
-[nginx+uwsgi+django+celery部署日志][1], [nginx完整示例配置详解][2]。
-
-[1]: https://yandenghong.github.io/2018/09/14/django_project_deploy/
-[2]: https://yandenghong.github.io/2019/03/21/nginx_conf/
+* 重新加载
+```text
+uwsgi --reload uwsgi.pid
+```
