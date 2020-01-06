@@ -107,21 +107,6 @@ pipenv run python manage.py migrate
 
 ```
 
-#### [修改自增初值](#)
-连接mysql后执行:
-```text
-use kort_url;
-
-alter table link_map auto_increment = 60000000000 ;
-```
-看到如下结果即修改成功。
-```text
-mysql> alter table link_map auto_increment = 60000000000 ;
-Query OK, 0 rows affected (0.17 sec)
-Records: 0  Duplicates: 0  Warnings: 0
-
-```
-
 #### [生产环境下的部署](#)
 原本这里是一些自己写的生产环境部署的内容，后来想了想，文档还是官方的好，所以就只附链接了:
 

@@ -29,9 +29,9 @@ def _any2ten(code, b=64):
 
 
 def get_code(n):
-    return _ten2any(n, 62)
+    return _ten2any(n+60000000000, 62)
 
 
 def get_id(code):
-    return _any2ten(code, 62)
+    return _any2ten(code, 62)-60000000000
 
