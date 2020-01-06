@@ -25,5 +25,11 @@ class RedisClient:
     def get_data(self, key):
         return self.client.get(key)
 
+    def set_bloom(self, item):
+        return self.client.sadd("KORT_URL", item)
+
+    def get_bloom(self, item):
+        return self.client.sismember("KORT_URL", item)
+
 
 redis_cli = RedisClient()

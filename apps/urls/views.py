@@ -76,7 +76,6 @@ class RedirectView(View):
         return user_agent
 
     def get(self, request, code):
-        code = code[:config.code_length]
         url = LinkMap.objects.get_url_by_code(code)
         if not url:
             raise Http404

@@ -25,6 +25,8 @@ class LinkMap(models.Model):
     def save_code(self):
         self.code = get_code(self.id)
         self.save()
+        # 将生成的短码写入过滤器中
+        redis_cli.set_bloom(self.code)
 
     class Meta:
         db_table = "link_map"
